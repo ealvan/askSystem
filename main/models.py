@@ -1,5 +1,8 @@
 from django.db import models
 
+#por el momento no agregue imagFile o algo asi
+#por que preseinto que el html, puede hacerlo con
+#el tag <img>, asi nos ahorramos , seria para el frontend eso
 
 # Create your models here.
 class Usuario(models.Model):
