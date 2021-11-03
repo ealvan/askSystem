@@ -23,6 +23,9 @@ class Pregunta(models.Model):
 
     titulo = models.CharField(max_length=200,null=False,blank=False)
     descripcion = models.TextField(null=False,blank=False)
+#con rudy acordamos que es mejor un bool, para hacer un filtro de confiable
+#nuestro plan es hacer una funcion que cambie este bool si hay una pregunta confiable
+#las respuestas que tiene	
     confiable = models.BooleanField(default=False)
     #sera un JSON, que lo convertiremos a text con json.dumps(jsonobj)
     #y cuando lo recobremos sera con json.dump()
