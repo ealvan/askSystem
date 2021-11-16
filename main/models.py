@@ -1,16 +1,19 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser,AbstractUser
 
 #por el momento no agregue imagFile o algo asi
 #por que preseinto que el html, puede hacerlo con
 #el tag <img>, asi nos ahorramos , seria para el frontend eso
 
 # Create your models here.
-class Usuario(models.Model):
-    usuario = models.CharField(max_length=40,null=False,blank=False)
-    password = models.CharField(max_length=80,null=False,blank=False)
+class Usuario(AbstractBaseUser):
+    username = models.CharField(max_length=40, unique=True)
+    #password = models.CharField(max_length=80,null=False,blank=False)
     #solo habra 5 niveles, el mejor es el nivel 1, el default es 5
-    nivel = models.IntegerField(default=5)
-    correo = models.EmailField(max_length=100,null=False,blank=False)
+    nivel = models.IntegerField(default=5,null=True,blank=True)
+    email = models.EmailField(max_length=100,unique=True,null=True,blank=True)
+    USERNAME_FIELD = "username"
+    EMAIL_FIELD = "email"
 
 
 class Categoria(models.Model):
