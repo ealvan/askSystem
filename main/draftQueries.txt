@@ -1,0 +1,34 @@
+>>> u1 = Usuario(username="ed",password="ed_1234",email="pass1234",nivel=5)
+>>> u1.save()
+>>> u2 = Usuario.objects.create(username="patyño",password="pat_1234",email="1234@gmail.com",nivel=4)
+>>> u2.save()
+>>> Usuario.objects.all()
+<QuerySet [<Usuario: ed>, <Usuario: patyño>]>
+>>> u3 = Usuario.objects.create(username="petonia",password="peti_1234",email="12peti34@gmail.com",nivel=3)
+>>> u3.save()
+>>> c1 = Categoria(nombre="cocina",descripcion="es todos los tipos de cocinas\n es mas que que cocina, es pateleria")
+>>> c1.save()
+>>> c1 = Categoria(nombre="quimica",descripcion="es quimica, es alquimia, puedes hacer pociones de vida eterna")
+>>> c1.save()
+>>> c1 = Categoria(nombre="SoftwareConstruction",descripcion="Is the most atipycal career, also has a healthy life with a lot of money,is prolific and has a lot of mates")
+>>> c1.save()
+>>> Pregunta(usuario=1,categoria=2,titulo="hOW i CAN GET drugs in my cook?",descripcion="I had a provider and is death, Now I need drugs for my medical condition,\n Is not for dream and funny, I need cooking drugs,\n What ingredients I need?")
+>>> Pregunta(usuario=Usuario.objects.get(id=1),categoria=Categoria.objects.get(id=2),titulo="hOW i CAN GET drugs in my cook?",descripcion="I had a provider and is death, Now I need drugs for my medical condition,\n Is not for dream and funny, I need cooking drugs,\n What ingredients I need?")
+<Pregunta: Pregunta object (None)>
+>>> a1 = Pregunta(usuario=Usuario.objects.get(id=1),categoria=Categoria.objects.get(id=2),titulo="hOW i CAN GET drugs in my cook?",descripcion="I had a provider and is death, Now I need drugs for my medical condition,\n Is not for dream and funny, I need cooking drugs,\n What ingredients I need?")
+>>> a1.save
+<bound method Model.save of <Pregunta: Pregunta object (None)>>
+>>> a1.save()
+>>> a1 = Pregunta(usuario=Usuario.objects.get(id=2),categoria=Categoria.objects.get(id=1),titulo="Cook",descripcion="I want to cook a orange cake, Please help me with items and other stuffs please!!!")
+>>> a1 = Pregunta(usuario=Usuario.objects.get(id=2),categoria=Categoria.objects.get(id=1),titulo="Cook a Orange Cake",de
+scripcion="I want to cook a orange cake, Please help me with items and other stuffs please!!!")
+>>> a1.save()
+>>> a1 = Pregunta(usuario=Usuario.objects.get(id=3),categoria=Categoria.objects.get(id=3),titulo="Error 404 on my server",descripcion="I dont know what happens with this server, has a lot of complexity,\n buttons and turn off sometimes with
+ this error Code, please help me")
+>>> a1.save()
+>>> Preguntas.objects.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'Preguntas' is not defined
+>>> Pregunta.objects.all()
+<QuerySet [<Pregunta: Pregunta object (1)>, <Pregunta: Pregunta object (2)>, <Pregunta: Pregunta object (3)>]>
