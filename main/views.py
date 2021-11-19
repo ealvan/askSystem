@@ -1,8 +1,11 @@
 from django.shortcuts import render
-
+from .models import Pregunta
 # Create your views here.
 def preguntaConfiable(request):
-    
-    return render(request,"main/preguntaConfiable.html")
+    confiables = Pregunta.objects.filter(confiable=True)
+    context = {
+        "confiables":confiables
+    }
+    return render(request,"main/preguntaConfiable.html",context)
 
 

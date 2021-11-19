@@ -32,3 +32,6 @@ Traceback (most recent call last):
 NameError: name 'Preguntas' is not defined
 >>> Pregunta.objects.all()
 <QuerySet [<Pregunta: Pregunta object (1)>, <Pregunta: Pregunta object (2)>, <Pregunta: Pregunta object (3)>]>
+--------------------------------------------
+GET ALL REPLY'S FROM PARTICULAR Questionw
+ lista[0].respuesta_set.all()[0].descripcion
