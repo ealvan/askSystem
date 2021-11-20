@@ -8,4 +8,12 @@ def preguntaConfiable(request):
     }
     return render(request,"main/preguntaConfiable.html",context)
 
+def singleQuestion(request,question_id):
+    question = Pregunta.objects.get(id=question_id)
+    context = {"question": question}
+    return render(request, "main/singleQuestion.html",context)
+
+
+
+
 

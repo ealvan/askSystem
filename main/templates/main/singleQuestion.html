@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Preguntas Confiables</title>
+    </head>
+    <body>
+        {% if question %}
+            <section class="pregconfia">
+                <h2> {{question.titulo}} </h2>
+                <p>{{question.descripcion}}</p>
+            </section>
+            {% if question.respuesta_set.all %}
+
+                {% for rpta in question.respuesta_set.all %}
+                    <section class="descripcionSection">
+                        <h2>Descripcion: </h2>
+                        <p class="bodyDescripcion">
+                            {{rpta.descripcion}}
+                        </p>
+                        <ul>
+                            <li><button>&#128077;: {{rpta.likes}}</button></li>
+                            <li><button>&#128078;: {{rpta.dislikes}}</button></li>
+                        </ul>
+                    </section>
+                    
+                {% endfor %}
+                
+            {% else %}
+                <p>No hay respuesta para esta pregunt aun.</p>
+            {% endif %}
+
+        {% else %}
+            <p>  No existe esta pregunta, puedes intentar buscando otra  </p>
+        {% endif %}
+    </body> 
+</html>

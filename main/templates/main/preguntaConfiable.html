@@ -14,24 +14,9 @@
             <div>
                 {% for pregconf in confiables %}
                     <section class="pregconfia">
-                        <h2> {{pregconf.titulo}} </h2>
+                        <h2> <a src="{% url 'main:singleQuestion' pregconf.id %}" >{{pregconf.titulo}}</a> </h2>
                         <p>{{pregconf.descripcion}}</p>
-                        <section class="respuestas">
-                            <h3>RESPUESTAS: </h3>
-                            {% if pregconf.respuesta_set.all %}
-                                {% for rpta in pregconf.respuesta_set.all %}
-                                    <p class="descripcionRpta">
-                                        {{rpta.descripcion}}
-                                    </p>
-                                    <ul>
-                                        <li>Likes: {{rpta.likes}}</li>
-                                        <li>Dislikes: {{rpta.dislikes}}</li>
-                                    </ul>
-                                {% endfor %}
-                            {% else %}
-                                <p>No tenemos respuetas aun :( </p>
-                            {% endif %}   
-                        </section>
+                        
                     </section>
                 {% endfor %}
             </div>
