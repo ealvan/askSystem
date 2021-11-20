@@ -14,7 +14,7 @@
             <div>
                 {% for pregconf in confiables %}
                     <section class="pregconfia">
-                        <h2> <a src="{% url 'main:singleQuestion' pregconf.id %}" >{{pregconf.titulo}}</a> </h2>
+                        <h2> <a href="{% url 'main:singleQuestion' pregconf.id %}" >{{pregconf.titulo}}</a></h2> 
                         <p>{{pregconf.descripcion}}</p>
                         
                     </section>
@@ -22,7 +22,7 @@
             </div>
         {% else %}
 
-        <p>Lo sentimos no hay preguntas confiables todavia</p>
+        <p><b>Lo sentimos no hay preguntas confiables todavia</b></p>
         <!-- insertar aqui algo para la url de la pagina home
             que felman esta haciendo
             <button ></button>

@@ -17,20 +17,61 @@
                         <p class="bodyDescripcion">
                             {{rpta.descripcion}}
                         </p>
+                        
                         <ul>
-                            <li><button>&#128077;: {{rpta.likes}}</button></li>
-                            <li><button>&#128078;: {{rpta.dislikes}}</button></li>
-                        </ul>
+                            <form method="GET">
+                                <li><input type="hidden" id="idRpta" value="{{rpta.id}}"></li>
+                                <li>&#128077;: <button type="submit" id="like">{{rpta.likes}}</button></li>
+                                <li>&#128078;:<button type="submit" id="dislike">{{rpta.dislikes}}</button></li>    
+                            </form>
+                            <!-- <li>&#128078;:<button id="utils">{{rpta.dislikes}}</button></li> -->
+                        </ul>                                     
                     </section>
-                    
                 {% endfor %}
                 
             {% else %}
-                <p>No hay respuesta para esta pregunt aun.</p>
+                <p><b>No hay respuesta para esta pregunt aun.</b></p>
             {% endif %}
 
         {% else %}
-            <p>  No existe esta pregunta, puedes intentar buscando otra  </p>
+            <p> <b> No existe esta pregunta, puedes intentar buscando otra</b>  </p>
         {% endif %}
     </body> 
+    <script >
+        console.log("Helloqorld");
+        const URL_WEB = "http://127.0.0.1:8000/"
+        var likeButton = document.getElementById("like");
+        var dislikeButton = document.getElementById("dislike");
+        //var utils = document.getElementById("utils");
+        
+        if(likeButton == null || dislikeButton == null){
+            console.error("Error de like or dislike button");
+        }
+
+        likeButton.addEventListener("click",sendData);
+        dislikeButton.addEventListener("click",sendData);
+        //utils.addEventListener("click",sendData);
+        function sendData(){
+            // console.log(this.textContent);
+            let numero = this.textContent;
+            console.log("ID: ",this.id);
+            let sendStrData = URL_WEB;
+            if(this.id == "like" ){
+                sendStrData += "askSystem/{{question.id}}/?type=like"+"&cantidad="+this.textContent;
+            }else if(this.id == "dislike" || this.id=="utils"){
+                sendStrData += "askSystem/{{question.id}}/?type=dislike"+"&cantidad="+this.textContent;
+            }
+            let idRpta = document.getElementById("idRpta");
+            if(idRpta == null){
+                console.log("Error en idRpta");
+                return;
+            }
+            id = idRpta.value;
+            sendStrData+="&rptaId="+id;
+            console.log(sendStrData);
+            window.location.href = sendStrData;
+        }
+//http://127.0.0.1:8000/askSystem/1/?type=dislike&cantidad=1&rptaId=1
+
+    </script>
 </html>

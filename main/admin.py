@@ -7,6 +7,8 @@ User = get_user_model()
 admin.site.register(User)
 admin.site.register(Pregunta)
 admin.site.register(Categoria)
+admin.site.register(Respuesta)
+
 
 
 
