@@ -30,7 +30,6 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-AUTH_USER_MODEL = "main.Usuario"#esto es importante, permite obtener nuestro modelo,en cualquier lugar
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
 ]
+AUTH_USER_MODEL = "main.Usuario"#esto es importante, permite obtener nuestro modelo,en cualquier lugar
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

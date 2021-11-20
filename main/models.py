@@ -1,5 +1,36 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser,AbstractUser
+from django.contrib.auth.models import AbstractBaseUser,AbstractUser,UserManager
+from django.db.models.expressions import Value
+
+class UsuarioManager(UserManager):
+    def create_user(self, username, password=None,is_staff=False,is_admin=False,is_active=False):
+        if not username:
+            raise ValueError("username es obligatorio")
+        if not password:
+            raise ValueError("Obligatorio el password")
+        user_obj = self.model(username = username)
+        user_obj.set_password(password)
+        user_obj.staff = is_staff
+        user_obj.admin = is_admin
+        user_obj.active = is_active
+        user_obj.save(using=self._db)
+        return user_obj
+    def create_staffuser(self, username, password=None):
+        user = self.create_user(
+            username=username,
+            password=password,
+            is_staff=True,
+        )
+        return user
+    def create_superuser(self, username, password=None):
+        user = self.create_user(
+            username=username,
+            password=password,
+            is_staff=True,
+            is_admin=True
+        )
+        return user
+        
 
 #por el momento no agregue imagFile o algo asi
 #por que presiento que el html, puede hacerlo con
@@ -12,9 +43,28 @@ class Usuario(AbstractBaseUser):
     #solo habra 5 niveles, el mejor es el nivel 1, el default es 5
     nivel = models.IntegerField(default=5,null=True,blank=True)
     email = models.EmailField(max_length=100,unique=True,null=True,blank=True)
+    active = models.BooleanField(default=False)
+    admin = models.BooleanField(default=False)
+    staff = models.BooleanField(default=False)
     USERNAME_FIELD = "username"
     EMAIL_FIELD = "email"
-
+    objects = UsuarioManager()
+    def get_full_name(self):
+        return self.username
+    def get_short_name(self):
+        return self.username
+    
+    def has_perm(self,perm,obj=None):
+        return True
+    def has_module_perms(self,app_label):
+        return True
+    @property
+    def is_staff(self):
+        return self.staff
+    @property
+    def is_admin(self):
+        return self.admin
+    
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100,null=False,blank=False)
