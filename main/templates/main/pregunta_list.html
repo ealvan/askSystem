@@ -1,0 +1,13 @@
+{% extends 'basePreguntas.html' %}
+{% block title %}
+    Lista de Preguntas
+{% endblock %}
+{% block body %}
+<h1> Listado de Preguntas </h1>
+{% for instance in object_list %}
+    <p>
+        {{ instance.id }} - 
+        <a href='{{ instance.get_absolute_url }}'>{{ instance.titulo}}</a>
+    </p>
+{% endfor %}
+{% endblock %}
