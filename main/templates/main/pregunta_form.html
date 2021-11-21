@@ -1,9 +1,9 @@
 {% extends 'basePreguntas.html' %}
 {% block title %}
-    Crear pregunta
+    Crear Pregunta
 {% endblock %}
 {% block body %}
-<h1>Pregunta</h1>
+<h1>Crear Pregunta</h1>
 <form method="POST" class="create">{% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Crear Pregunta" class="button">
