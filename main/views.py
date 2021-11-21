@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView
 from .models import Pregunta
 
@@ -27,3 +27,12 @@ def PreguntaCreateView(request):
     }
 
     return render(request, 'main/pregunta_form.html', context)
+
+def PreguntaDetailView(request, pk):
+    obj = get_object_or_404(Pregunta, id = pk)
+    
+    context = {
+        'object': obj
+    }
+
+    return render(request, 'preguntas/pregunta_detail.html', context)
