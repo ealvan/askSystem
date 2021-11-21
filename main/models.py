@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,AbstractUser,UserManager
 from django.db.models.expressions import Value
+from django.urls import reverse
 
 class UsuarioManager(UserManager):
     def create_user(self, username, password=None,is_staff=False,is_admin=False,is_active=False):
@@ -70,6 +71,9 @@ class Categoria(models.Model):
     nombre = models.CharField(max_length=100,null=False,blank=False)
     descripcion = models.TextField(null=True,blank=True)
 
+    def __str__(self):
+        return self.nombre
+
 class Pregunta(models.Model):
     usuario = models.ForeignKey(Usuario,on_delete=models.PROTECT)
     categoria = models.ForeignKey(Categoria,on_delete=models.PROTECT)
@@ -84,6 +88,9 @@ class Pregunta(models.Model):
     #y cuando lo recobremos sera con json.dump()
     #djnago no permite listas por el momento
     keywords = models.TextField(null=False,blank=False)
+
+    def get_absolute_url(self):
+        return reverse('main:pregunta-detail', kwargs={'pk': self.id})
 
 
 class Respuesta(models.Model):
