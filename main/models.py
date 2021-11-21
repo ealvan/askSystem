@@ -71,6 +71,9 @@ class Categoria(models.Model):
     nombre = models.CharField(max_length=100,null=False,blank=False)
     descripcion = models.TextField(null=True,blank=True)
 
+    def __str__(self):
+        return self.nombre
+
 class Pregunta(models.Model):
     usuario = models.ForeignKey(Usuario,on_delete=models.PROTECT)
     categoria = models.ForeignKey(Categoria,on_delete=models.PROTECT)
