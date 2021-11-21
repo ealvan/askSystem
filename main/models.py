@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,AbstractUser,UserManager
 from django.db.models.expressions import Value
+from django.urls import reverse
 
 class UsuarioManager(UserManager):
     def create_user(self, username, password=None,is_staff=False,is_admin=False,is_active=False):
@@ -84,6 +85,9 @@ class Pregunta(models.Model):
     #y cuando lo recobremos sera con json.dump()
     #djnago no permite listas por el momento
     keywords = models.TextField(null=False,blank=False)
+
+    def get_absolute_url(self):
+        return reverse('main:pregunta-detail', kwargs={'pk': self.id})
 
 
 class Respuesta(models.Model):
