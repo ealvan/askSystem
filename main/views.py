@@ -30,9 +30,9 @@ def PreguntaCreateView(request):
 
 def PreguntaDetailView(request, pk):
     obj = get_object_or_404(Pregunta, id = pk)
-    
+
     context = {
         'object': obj
     }
 
-    return render(request, 'preguntas/pregunta_detail.html', context)
+    return render(request, 'main/pregunta_detail.html', context)
