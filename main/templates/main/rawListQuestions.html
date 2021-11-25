@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Preguntas lista</title>
+    </head>
+    <body>
+    <!--
+        Aqui jeampier pones tu buscador, puede ser ajax, o solo un boton
+        para que entren a buscar su pregunta por los 3 filtros que te dije
+        Por si es confiable
+        Por Por categorias
+        Por palabras clave
+        te debe guiar a una template  que te de las preguntas
+        Pero sino hay resultados, puedes poner un mensaje en esta pagina que 
+        diga que no se encontraron resultados(mas facil para ti)
+    -->
+        <h1>Lista de Preguntas</h1>
+        <p> Preguntas confiables dado el atributo confiable de la pregunta </p>
+        {% if lista %}
+            <section>
+                <h3>Actualmente: </h3>
+                <p>Hay {{ lista|length }} preguntas en este momento</p>
+            </section>
+            <div>
+                {% for pregconf in lista %}
+                    <section class="pregconfia">
+                        <h2> <a href="{% url 'main:singleQuestion' pregconf.id %}" >{{pregconf.titulo}}</a></h2> 
+                        <p>{{pregconf.descripcion}}</p>
+                        <p>Usuario: <em>{{pregconf.usuario.username}}</em></p>
+                    </section>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p><b>Lo sentimos no hay preguntas todavia</b></p>
+            <!-- insertar aqui algo para la url de la pagina home
+                que felman esta haciendo
+                <button ></button>
+            -->
+            
+        {% endif %}
+        
+        <button id="createQuestion" target="_blank">Crear Pregunta!</button>
+    </body> 
+    <script>
+        document.getElementById("createQuestion").onclick = function () {
+            location.href = "{% url 'main:pregunta-create' %}";
+        };
+        
+        
+    </script>
+</html>

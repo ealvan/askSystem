@@ -20,7 +20,7 @@
                         
                         <ul>
                             <form method="GET">
-                                <li><input type="hidden" id="idRpta" value="{{rpta.id}}"></li>
+                                <li><input type="hidden" id="idRpta" value="{{rpta.id}}"></li><!--No borren esto, sino no funciona-->
                                 <li>&#128077;: <button type="submit" id="like">{{rpta.likes}}</button></li>
                                 <li>&#128078;:<button type="submit" id="dislike">{{rpta.dislikes}}</button></li>    
                             </form>
@@ -31,6 +31,8 @@
                 
             {% else %}
                 <p><b>No hay respuesta para esta pregunt aun.</b></p>
+                <button id="addReply"> Crear Respuesta!</button>
+                
             {% endif %}
 
         {% else %}
@@ -40,16 +42,21 @@
     <script >
         console.log("Helloqorld");
         const URL_WEB = "http://127.0.0.1:8000/"
+
         var likeButton = document.getElementById("like");
         var dislikeButton = document.getElementById("dislike");
+ 
         //var utils = document.getElementById("utils");
         
-        if(likeButton == null || dislikeButton == null){
-            console.error("Error de like or dislike button");
-        }
+        function main(){
+            if(likeButton == null || dislikeButton == null){
+                console.error("Error de like or dislike button");
+                return;
+            }
 
-        likeButton.addEventListener("click",sendData);
-        dislikeButton.addEventListener("click",sendData);
+            likeButton.addEventListener("click",sendData);
+            dislikeButton.addEventListener("click",sendData);
+        }
         //utils.addEventListener("click",sendData);
         function sendData(){
             // console.log(this.textContent);
@@ -71,6 +78,10 @@
             console.log(sendStrData);
             window.location.href = sendStrData;
         }
+        main();
+        document.getElementById("addReply").onclick = function () {
+            location.href = "{% url 'main:createReply' question.id %}";
+        };
 //http://127.0.0.1:8000/askSystem/1/?type=dislike&cantidad=1&rptaId=1
 
     </script>

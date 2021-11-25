@@ -18,3 +18,9 @@ class PreguntaForm(forms.ModelForm):
             'confiable',
             'keywords',
         ]
+class CreateReply(forms.ModelForm):
+    class Meta:
+        model = Respuesta
+        fields=[
+            "descripcion",
+        ]

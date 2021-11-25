@@ -4,7 +4,7 @@
         <title>Preguntas Confiables</title>
     </head>
     <body>
-        <h2>Preguntas Confiables</h2>
+        <h1>Preguntas Confiables</h1>
         <p> Preguntas confiables dado el atributo confiable de la pregunta </p>
         {% if confiables %}
             <section>
@@ -13,20 +13,21 @@
             </section>
             <div>
                 {% for pregconf in confiables %}
-                    <section class="pregconfia">
+                    <section class="pregunta">
                         <h2> <a href="{% url 'main:singleQuestion' pregconf.id %}" >{{pregconf.titulo}}</a></h2> 
-                        <p>{{pregconf.descripcion}}</p>
-                        
+                        <p>{{pregconf.descripcion}}</p>                        
+                        <p>Usuario: <em>{{pregconf.usuario.username}}</em></p>
                     </section>
                 {% endfor %}
             </div>
         {% else %}
 
-        <p><b>Lo sentimos no hay preguntas confiables todavia</b></p>
-        <!-- insertar aqui algo para la url de la pagina home
-            que felman esta haciendo
-            <button ></button>
-        -->
+            <p><b>Lo sentimos no hay preguntas confiables todavia</b></p>
+            
+            <!-- insertar aqui algo para la url de la pagina home
+                que felman esta haciendo
+                <button ></button>
+            -->
         {% endif %}
     </body> 
 </html>
