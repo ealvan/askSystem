@@ -94,7 +94,9 @@ class Pregunta(models.Model):
 
 
 class Respuesta(models.Model):
+    usuario = models.ForeignKey(Usuario,on_delete=models.PROTECT,null=True,blank=True)
     pregunta = models.ForeignKey(Pregunta,on_delete=models.CASCADE)
+    
     #queria agregarle titulo, pero creo esta demas
     #titulo = models.CharField(max_length=100,null=False,blank=False)
     descripcion = models.TextField(null=False,blank=False)
