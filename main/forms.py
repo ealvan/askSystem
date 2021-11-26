@@ -25,12 +25,14 @@ class CreateReply(forms.ModelForm):
         model = Respuesta
         fields=[
             "usuario",
+            "pregunta",
             "descripcion",
             "likes",
             "dislikes"
         ]
         widgets  = {
             "usuario":widgets.TextInput(attrs={'readonly': 'readonly'}),
+            "pregunta":widgets.TextInput(attrs={'readonly': 'readonly'}),
             "descripcion":widgets.Textarea(),
             "likes":widgets.NumberInput(attrs={'readonly': 'readonly'}),
             "dislikes":widgets.NumberInput(attrs={'readonly': 'readonly'}),

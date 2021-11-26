@@ -74,8 +74,8 @@
                 console.log("Error en idRpta");
                 return;
             }
-            id = idRpta.value;
-            sendStrData+="&rptaId="+id;
+            let val = idRpta.value;
+            sendStrData+="&rptaId="+val;
             console.log(sendStrData);
             window.location.href = sendStrData;
         }

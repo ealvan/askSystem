@@ -3,6 +3,7 @@ from django.views.generic import ListView
 from .models import Pregunta,Respuesta, Usuario
 from django.urls import reverse
 import pprint as pp
+from django.http import HttpResponseRedirect
 from .forms import CreateReply as create_reply, PreguntaForm,RespuestaForm
 # Create your views here.
 def preguntaConfiable(request):
@@ -51,11 +52,13 @@ def createReply(request,username, question_id):
         question = get_object_or_404(Pregunta, id=question_id)
         user = get_object_or_404(Usuario, id = username)
         if question:
-            form = create_reply(data={
-                "usuario":user.username,
-                "likes":0,
-                "dislikes":0
-            })
+            obj = Respuesta()
+            obj.usuario = user
+            obj.pregunta = question
+            obj.descripcion = ""
+            obj.likes = 0
+            obj.dislikes = 0
+            form = create_reply(instance=obj)
             context = {
                 "question":question,
                 "usuario":user,
@@ -68,12 +71,31 @@ def createReply(request,username, question_id):
     else:
         user = get_object_or_404(Usuario, id = username)
         question = get_object_or_404(Pregunta, id=question_id)
+        
         form = create_reply(request.POST)
         # pp.pprint(form.cleaned_data.get("descripcion"))
         if form.is_valid():
             #aqui no entra y no se porque, aqui lo dejo por hoy :(
-            form.save()
-            return reverse('main:singleQuestion', kwargs={"question_id":question_id })
+            # print("AGHHHHHHHHHHHHHHHHHHHHHHHH")
+            myCleanReply = Respuesta()
+            try:
+                myCleanReply.usuario = form.cleaned_data["usuario"]
+                myCleanReply.pregunta = form.cleaned_data["pregunta"]
+                myCleanReply.descripcion = form.cleaned_data["descripcion"]
+                myCleanReply.likes = form.cleaned_data["likes"]
+                myCleanReply.dislikes = form.cleaned_data["dislikes"]
+                myCleanReply.save()
+            except:
+                print("********NO SE PUDO GUARDAR BIEN!!!")
+                return render(request,"main/rawListQuestions.html")    
+            
+            # myCleanReply.save()
+            #return render(request,"main/rawListQuestions.html") 
+            # # form.save()
+            # pp.pprint(form.cleaned_data)
+            #reverse() returns a string. form_valid() is supposed to return HTTP responses, not strings.
+            return HttpResponseRedirect(reverse('main:singleQuestion', kwargs={"question_id":1 }))
+
         else:
             print("EL FORMULARIO NO ES VALIDO")
     
