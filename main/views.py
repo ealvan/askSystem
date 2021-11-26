@@ -1,7 +1,8 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView
 from .models import Pregunta,Respuesta, Usuario
-
+from django.urls import reverse
+import pprint as pp
 from .forms import CreateReply as create_reply, PreguntaForm,RespuestaForm
 # Create your views here.
 def preguntaConfiable(request):
@@ -65,9 +66,17 @@ def createReply(request,username, question_id):
         else:
             return render(request,"main/createReply.html")
     else:
-        form = create_reply(data={"usuario":username})
-
-
+        user = get_object_or_404(Usuario, id = username)
+        question = get_object_or_404(Pregunta, id=question_id)
+        form = create_reply(request.POST)
+        # pp.pprint(form.cleaned_data.get("descripcion"))
+        if form.is_valid():
+            #aqui no entra y no se porque, aqui lo dejo por hoy :(
+            form.save()
+            return reverse('main:singleQuestion', kwargs={"question_id":question_id })
+        else:
+            print("EL FORMULARIO NO ES VALIDO")
+    
     return render(request,"main/createReply.html")
 
 
