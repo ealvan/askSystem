@@ -2,8 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView
 from .models import Pregunta,Respuesta, Usuario
 
-from .forms import CreateReply, PreguntaForm,RespuestaForm
-
+from .forms import CreateReply as create_reply, PreguntaForm,RespuestaForm
 # Create your views here.
 def preguntaConfiable(request):
     confiables = Pregunta.objects.filter(confiable=True)
@@ -44,19 +43,30 @@ def singleQuestion(request,question_id):
     }
     return render(request, "main/singleQuestion.html",context)
 
-def createReply(request,question_id):
+def createReply(request,username, question_id):
     # print("Question ID: ",question_id)
+
     if request.method == "GET":
         question = get_object_or_404(Pregunta, id=question_id)
+        user = get_object_or_404(Usuario, id = username)
         if question:
+            form = create_reply(data={
+                "usuario":user.username,
+                "likes":0,
+                "dislikes":0
+            })
             context = {
-                "question":question
+                "question":question,
+                "usuario":user,
+                "form":form,
             }
+
             return render(request,"main/createReply.html",context)            
         else:
             return render(request,"main/createReply.html")
     else:
-        form = CreateReply(request.POST)
+        form = create_reply(data={"usuario":username})
+
 
     return render(request,"main/createReply.html")
 

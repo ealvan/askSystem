@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,AbstractUser,UserManager
-from django.db.models.expressions import Value
 from django.urls import reverse
 
 class UsuarioManager(UserManager):

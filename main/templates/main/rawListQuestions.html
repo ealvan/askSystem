@@ -38,13 +38,26 @@
             -->
             
         {% endif %}
-        
+        <!-- {% if user.is_authenticated %}
+            <p>Usuario SI Autenticado</p>
+            <button id="createQuestion" target="_blank">Crear Pregunta!</button>
+        {% else %} 
+            <p>Usuario NO Autenticado</p>            
+        {% endif %} -->
         <button id="createQuestion" target="_blank">Crear Pregunta!</button>
     </body> 
     <script>
-        document.getElementById("createQuestion").onclick = function () {
-            location.href = "{% url 'main:pregunta-create' %}";
-        };
+        function main(){
+            let buttonSend = document.getElementById("createQuestion");
+            if(buttonSend == null){
+                console.log("Boton no existe, tal vez no esta autenticado");
+                return;
+            }
+            buttonSend.onclick = function () {
+                location.href = "{% url 'main:pregunta-create' %}";
+            }; 
+        }
+        main();
         
         
     </script>

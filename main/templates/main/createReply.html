@@ -9,8 +9,16 @@
         {% if question %}
 
             <h2>{{question.titulo}}</h2>
-            
-
+            {% if usuario %}
+                <p>Usuario : <em>{{usuario.username}}</em></p>
+                <form method="POST">{% csrf_token %}
+                    {{form.as_p }}
+                    <input type="submit" value="Crear Respuesta!!">
+                </form>
+            {% else %}
+                <p>No existe usuario</p>
+            {% endif %}
+        
         {% else %}
             <h2>No llego preguntaOBJ</h2>
         
