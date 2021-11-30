@@ -55,22 +55,6 @@
         main();
         // console.log("Helloqorld");
         const URL_WEB = "http://127.0.0.1:8000/"
-        
-        // var likeButton = document.getElementById("like{{rpta.id}}");
-        // var dislikeButton = document.getElementById("dislike{{rpta.id}}");
- 
-        // var utils = document.getElementById("utils{{rpta.id}}");
-        
-        // function main(){
-        //     if(likeButton == null || dislikeButton == null){
-        //         console.error("Error de like or dislike button");
-        //         return;
-        //     }
-
-        //     likeButton.addEventListener("click",sendData);
-        //     dislikeButton.addEventListener("click",sendData);
-        //     utils.addEventListener("click",sendData);
-        // }
         function sendData(){
             //console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA","{{rpta.id}}");
             // console.log(this.textContent);
@@ -82,16 +66,9 @@
             }else if(rawId.slice(0,1) == "d" || rawId.slice(0,1)=="u"){
                 sendStrData += "askSystem/pregunta/{{question.id}}/?type=dislike";
             }
-            
-            
             let idrpta = rawId.slice(1,rawId.length)
-            // console.log("ITEMS: ",rawId,"ID: ",idrpta);
-
             let val = idrpta;
             sendStrData+="&rptaId="+val;
-            //console.log("RESPUESTA ID",val);
-            //console.log(sendStrData);
-            
             window.location.href = sendStrData;
         }
         
@@ -101,7 +78,7 @@
         // };
          
         // main();
-//http://127.0.0.1:8000/askSystem/1/?type=dislike&cantidad=1&rptaId=1
+        //http://127.0.0.1:8000/askSystem/1/?type=dislike&cantidad=1&rptaId=1
 
     </script>
 </html>
