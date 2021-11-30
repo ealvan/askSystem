@@ -1,10 +1,17 @@
 from django.shortcuts import get_object_or_404, redirect, render
+from django.http import HttpResponse
 from django.views.generic import ListView
 from .models import Pregunta,Respuesta, Usuario
 
 from .forms import CreateReply, PreguntaForm,RespuestaForm
 
 # Create your views here.
+
+def myHomeView(request, *args, **kwargs):
+    print(args, kwargs)
+    print(request.user)
+    return render(request, "home.html",{})
+
 def preguntaConfiable(request):
     confiables = Pregunta.objects.filter(confiable=True)
     context = {
