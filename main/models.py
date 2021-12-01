@@ -39,7 +39,7 @@ class UsuarioManager(UserManager):
 
 # Create your models here.
 class Usuario(AbstractBaseUser):
-    username = models.CharField(max_length=40, unique=True)
+    username = models.CharField(max_length=40, unique=True, null=True)
     #password = models.CharField(max_length=80,null=False,blank=False)
     #solo habra 5 niveles, el mejor es el nivel 1, el default es 5
     nivel = models.IntegerField(default=5,null=True,blank=True)

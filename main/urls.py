@@ -21,7 +21,6 @@ app_name="main"
 #   las preguntas, pero no pueden editar ni eliminar nada
 
 urlpatterns=[
-    #path("",views.mainPreguntas, name="homeQuestion"),
     path("lista/",views.rawListQuestion,name="pregunta-list"),#lista completa!
     path("confiable/",views.preguntaConfiable,name="pregConfiable"),#lista confiable!
     path("pregunta/<int:question_id>/",views.singleQuestion,name="singleQuestion"),

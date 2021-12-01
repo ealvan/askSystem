@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+    {% if preguntas %}
+        <br />
+            {% for pre in preguntas %}
+            <tr>
+                <td>{{ pre.categoria }}</td>
+                <td>{{ pre.titulo }}</td>
+                <td>{{ pre.descripcion }}</td>
+
+            </tr>
+            <br>
+            {% endfor %}
+
+        {% else %}
+        <h1>No ha buscado ninguna palabra</h1>
+    {% endif %}
+
+
+
+
+</center>
+{% endblock %}

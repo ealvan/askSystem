@@ -1,10 +1,29 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView
-from .models import Pregunta,Respuesta, Usuario
+from .models import Categoria, Pregunta,Respuesta, Usuario
+from django.db.models import Q
 
 from .forms import CreateReply, PreguntaForm,RespuestaForm
 
 # Create your views here.
+def index(request):
+    return render(request,'base.html',{})
+
+def resultados(request):
+    if request.method == "POST":
+        busqueda = request.POST.get("buscar")
+        preguntas = {}
+        if busqueda:
+            preguntas = Pregunta.objects.filter(
+                Q(descripcion__icontains = busqueda) |
+                Q(titulo__icontains = busqueda) |
+                Q(keywords__icontains = busqueda)
+                ).distinct()
+            
+        return render(request,'resultados.html',{'preguntas':preguntas})
+    else:
+        return render(request,'resultados.html',{})
+
 def preguntaConfiable(request):
     confiables = Pregunta.objects.filter(confiable=True)
     context = {
