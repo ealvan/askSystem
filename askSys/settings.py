@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'account',
 ]
 AUTH_USER_MODEL = "main.Usuario"#esto es importante, permite obtener nuestro modelo,en cualquier lugar
 

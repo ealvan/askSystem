@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>MiniMarket DON PEPE</title>
+
+  </head>
+  <body class="goto-here">
+
+    {% if user.is_authenticated %}
+            <li><a href="/login/logout/">Cerrar Sesion</a></li>
+            <li><a href="#">Hola, {{user.username}}</a></li>
+
+    {% else %}
+            <li><a href="/login/">IMPOSTOR</a></li>
+    {% endif %}
+
+  </body>
+</html>
