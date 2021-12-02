@@ -12,13 +12,22 @@ def index(request):
 def resultados(request):
     if request.method == "POST":
         busqueda = request.POST.get("buscar")
+        confiable = request.POST.get("confiable")
         preguntas = {}
-        if busqueda:
+        if(confiable):
             preguntas = Pregunta.objects.filter(
                 Q(descripcion__icontains = busqueda) |
                 Q(titulo__icontains = busqueda) |
-                Q(keywords__icontains = busqueda)
+                Q(keywords__icontains = busqueda),
+                confiable = True
                 ).distinct()
+        else:
+            if busqueda:
+                preguntas = Pregunta.objects.filter(
+                    Q(descripcion__icontains = busqueda) |
+                    Q(titulo__icontains = busqueda) |
+                    Q(keywords__icontains = busqueda)
+                    ).distinct()
             
         return render(request,'resultados.html',{'preguntas':preguntas})
     else:
