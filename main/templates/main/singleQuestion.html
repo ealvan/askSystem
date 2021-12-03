@@ -20,7 +20,7 @@
                         
                         <ul>
                             <form method="GET" id="form{{rpta.id}}">
-                                <li><input type="text" id="rpta{{rpta.id}}" value="{{rpta.id}}"></li><!--No borren esto, sino no funciona-->
+                                <li><input type="hidden" id="rpta{{rpta.id}}" value="{{rpta.id}}"></li><!--No borren esto, sino no funciona-->
                                 <li>&#128077;: <button type="submit" id="l{{rpta.id}}" class="like">{{rpta.likes}}</button></li>
                                 <li>&#128078;:<button type="submit" id="d{{rpta.id}}" class="dislike">{{rpta.dislikes}}</button></li>    
                             </form>
