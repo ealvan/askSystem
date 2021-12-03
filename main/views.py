@@ -4,6 +4,7 @@ from .models import Pregunta,Respuesta, Usuario
 from django.urls import reverse
 import pprint as pp
 from django.http import HttpResponseRedirect
+import re
 from .forms import CreateReply as create_reply, PreguntaForm,RespuestaForm
 # Create your views here.
 def preguntaConfiable(request):
@@ -124,4 +125,10 @@ def PreguntaDetailView(request, pk):
     return render(request, 'main/pregunta_detail.html', context)
 
 
+# ---------------------------------------------------------------
+
+def getUrlsandParse(descrp):
+    re.findall(r"{*}")
+    # return descrip
+    pass
 
