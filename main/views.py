@@ -59,6 +59,7 @@ def createReply(request,username, question_id):
             obj.descripcion = ""
             obj.likes = 0
             obj.dislikes = 0
+            obj.url_img = ""
             form = create_reply(instance=obj)
             context = {
                 "question":question,
@@ -85,6 +86,7 @@ def createReply(request,username, question_id):
                 myCleanReply.descripcion = form.cleaned_data["descripcion"]
                 myCleanReply.likes = form.cleaned_data["likes"]
                 myCleanReply.dislikes = form.cleaned_data["dislikes"]
+                myCleanReply.url_img = form.cleaned_data["url_img"]
                 myCleanReply.save()
             except:
                 print("********NO SE PUDO GUARDAR BIEN!!!")

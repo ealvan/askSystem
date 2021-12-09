@@ -27,6 +27,7 @@ class CreateReply(forms.ModelForm):
             "usuario",
             "pregunta",
             "descripcion",
+            "url_img",
             "likes",
             "dislikes"
         ]
@@ -34,6 +35,7 @@ class CreateReply(forms.ModelForm):
             "usuario":widgets.TextInput(attrs={'readonly': 'readonly'}),
             "pregunta":widgets.TextInput(attrs={'readonly': 'readonly'}),
             "descripcion":widgets.Textarea(),
+            "url_img":widgets.TextInput(),
             "likes":widgets.NumberInput(attrs={'readonly': 'readonly'}),
             "dislikes":widgets.NumberInput(attrs={'readonly': 'readonly'}),
         }
