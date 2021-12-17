@@ -1,0 +1,27 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>login</title>
+    <meta charset="utf-8">
+  </head>
+  <body class="goto-here">
+    <center>
+      	<form method="post">
+      		<h1>INICIAR SESIÓN</h1>
+      		{% csrf_token %}
+      		<input type="text" name="username" placeholder="username"><br>
+      		<input type="password" name="password" placeholder="password"><br>
+      		<input type="Submit">
+      	</form>
+  </center>
+	<div>
+		{% for message in messages %}
+		<h3>{{message}}</h3>
+		{% endfor %}
+	</div>
+
+
+  </body>
+</html>

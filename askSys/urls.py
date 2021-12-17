@@ -23,7 +23,7 @@ urlpatterns = [
     path("question/<int:question_id>/",views.singleQuestion, name="question"),
     path("question/ask",views.PreguntaCreateView, name="ask"),
     path("reply/<int:username>/<int:question_id>/",views.createReply,name="reply"),
-
-    path("search",views.resultados, name="resultados"),
-    path("askSystem/",include("main.urls")),
+    path("resultados",views.resultados, name="resultados"),
+    path("logout/", views.logout, name = "logout"),
+    path("login/", views.login, name = "login"),
 ]

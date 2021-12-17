@@ -24,7 +24,7 @@
             <div>
                 {% for pregconf in lista %}
                     <section class="pregconfia">
-                        <h2> <a href="{% url 'main:singleQuestion' pregconf.id %}" >{{pregconf.titulo}}</a></h2> 
+                        <h2> <a href="{% url 'question' pregconf.id %}" >{{pregconf.titulo}}</a></h2> 
                         <p>{{pregconf.descripcion}}</p>
                         <p>Usuario: <em>{{pregconf.usuario.username}}</em></p>
                     </section>

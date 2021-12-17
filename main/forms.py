@@ -20,6 +20,11 @@ class PreguntaForm(forms.ModelForm):
             'keywords',
         ]
 
+        widgets = {
+            'usuario':widgets.HiddenInput(),
+            'confiable':widgets.HiddenInput(),
+        }
+
 class CreateReply(forms.ModelForm):
     class Meta:
         model = Respuesta

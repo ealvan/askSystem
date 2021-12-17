@@ -2,10 +2,20 @@
 {% block title %}
     Crear Pregunta
 {% endblock %}
+
 {% block body %}
+
+{% if user.is_authenticated %}
 <h1>Crear Pregunta</h1>
+
 <form method="POST" class="create">{% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Crear Pregunta" class="button">
 </form>
+
+{% else %}
+<a >USTED NO PUEDE CREAR UNA PREGUTNA</a>
+{% endif %}
+
+
 {% endblock %}

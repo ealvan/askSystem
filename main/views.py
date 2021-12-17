@@ -6,6 +6,9 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import CreateReply as create_reply, PreguntaForm,RespuestaForm
 import re
+from django.contrib import messages
+from django.contrib.auth.models import User, auth
+from django.contrib.auth import logout as do_logout
 
 # Create your views here.
 def index(request):
@@ -129,7 +132,7 @@ def createReply(request,username, question_id):
             # # form.save()
             # pp.pprint(form.cleaned_data)
             #reverse() returns a string. form_valid() is supposed to return HTTP responses, not strings.
-            return HttpResponseRedirect(reverse('main:singleQuestion', kwargs={"question_id":1 }))
+            return HttpResponseRedirect(reverse('question', kwargs={"question_id":1 }))
 
         else:
             print("EL FORMULARIO NO ES VALIDO")
@@ -165,16 +168,24 @@ class PreguntaListView(ListView):
     model = Pregunta
 
 def PreguntaCreateView(request):
-    form = PreguntaForm(request.POST or None)
+    
+    form = PreguntaForm(request.POST or None, initial = {'usuario': request.user})
     if form.is_valid():
         form.save()
         form = PreguntaForm()
-        return redirect('main:pregunta-list')
+        return redirect('index')
     context = {
         'form': form
     }
-    return render(request, 'main/pregunta_form.html', context)  
+    return render(request, 'main/pregunta_form.html', context) 
+'''
+if request.method == "POST":
+        busqueda = request.POST.get("categoria")
+        confiable = request.POST.get("titulo")
+        confiable = request.POST.get("descripcion")
+        confiable = request.POST.get("keywords")
 
+'''
 def PreguntaDetailView(request, pk):
     obj = get_object_or_404(Pregunta, id = pk)
     context = {
@@ -187,3 +198,21 @@ def getUrlsandParse(descrp):
     # return descrip
     pass
 
+def login(request):
+	if request.method == 'POST':
+		username = request.POST['username']
+		password = request.POST['password']
+		user = auth.authenticate(username = username, password = password)
+		if user is not None:
+			auth.login(request, user)
+			return HttpResponseRedirect(reverse('index'))
+		else:
+			messages.info(request, 'Datos incorrectos')
+			return HttpResponseRedirect(reverse('login  '))
+	else:
+		return render(request, 'login.html')
+
+def logout(request):
+	#auth.logout(request)
+	do_logout(request)
+	return HttpResponseRedirect(reverse('index'))
