@@ -32,4 +32,10 @@ urlpatterns = [
     path("search",views.resultados, name="search"),
     path("logout/", views.logout, name = "logout"),
     path("login/", views.login, name = "login"),
+    path('createuser/', views.SignUp, name="SignUp"),
+
+    path('question/delete/', views.PreguntaDeleteView.as_view(), name = 'pregunta-delete'),
+    path('question/update/', views.PreguntaUpdateView.as_view(), name = 'pregunta-update'),
+
+
 ]
