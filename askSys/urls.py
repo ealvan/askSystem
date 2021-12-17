@@ -26,4 +26,8 @@ urlpatterns = [
     path("resultados",views.resultados, name="resultados"),
     path("logout/", views.logout, name = "logout"),
     path("login/", views.login, name = "login"),
+
+    
+    path('question/delete/', views.PreguntaDeleteView.as_view(), name = 'pregunta-delete'),
+    path('question/update/', views.PreguntaUpdateView.as_view(), name = 'pregunta-update'),
 ]

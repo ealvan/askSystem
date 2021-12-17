@@ -1,0 +1,15 @@
+{% extends 'basePreguntas.html' %}
+{% block title %}
+    Borrar Pregunta
+{% endblock %}
+{% block body %}
+<h1>Borrar pregunta</h1>
+<h2>{{ object.contenido }}</h2>
+<form method="POST" class="">{% csrf_token %}
+    <p>
+        Desea borra la pregunta?
+    </p>
+    <input type="submit" value="Confirmar" class="button">
+    <a href="/preguntas/" class="moficaciones">Cancelar</a>
+</form>
+{% endblock %}

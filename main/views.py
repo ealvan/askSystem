@@ -1,5 +1,10 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import ListView
+from django.views.generic import (
+    ListView,
+    DeleteView,
+    UpdateView,
+)
+from django.urls import reverse_lazy
 from .models import Categoria, Pregunta,Respuesta, Usuario
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -192,6 +197,21 @@ def PreguntaDetailView(request, pk):
         'object': obj
     }
     return render(request, 'main/pregunta_detail.html', context)
+
+class PreguntaDeleteView(DeleteView):
+    model = Pregunta
+    success_url = reverse_lazy('preguntas:pregunta-list')
+
+class PreguntaUpdateView(UpdateView):
+    model = Pregunta
+    fields = {
+        'usuario',
+        'categoria',
+        'titulo',
+        'descripcion',
+        'confiable',
+        'keywords',   
+    }
 
 def getUrlsandParse(descrp):
     re.findall(r"{*}")
