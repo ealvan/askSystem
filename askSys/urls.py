@@ -20,10 +20,11 @@ from main import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",views.index, name="index"),
+    path("question/",views.index, name="question"),
     path("question/<int:question_id>/",views.singleQuestion, name="question"),
     path("question/ask",views.PreguntaCreateView, name="ask"),
     path("reply/<int:username>/<int:question_id>/",views.createReply,name="reply"),
-    path("resultados",views.resultados, name="resultados"),
+    path("search",views.resultados, name="search"),
     path("logout/", views.logout, name = "logout"),
     path("login/", views.login, name = "login"),
 

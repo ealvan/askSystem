@@ -34,7 +34,7 @@
 
         <!-- Le puse el buscador provisional aca, esto debería estar en el nav -->
 
-        <form class="d-flex" method=POST action="{% url 'search' %}">
+        <form class="d-flex" method=POST action="{% url 'resultados' %}">
           {% csrf_token %}
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" name="confiable">
@@ -48,13 +48,13 @@
 
 
 
-        {% if lista %}
+        {% if preguntas %}
         <section>
           <h3>Actualmente: </h3>
-          <p>Hay {{ lista|length }} preguntas en este momento</p>
+          <p>Hay {{ preguntas|length }} preguntas encotnrads</p>
         </section>
         <div>
-          {% for pregconf in lista %}
+          {% for pregconf in preguntas %}
           <section class="pregconfia">
             <h2> <a href="{% url 'question' pregconf.id %}">{{pregconf.titulo}}</a></h2>
             <p>{{pregconf.descripcion}}</p>
@@ -70,6 +70,8 @@
         -->
 
         {% endif %}
+
+
       </div>
     </div>
 
