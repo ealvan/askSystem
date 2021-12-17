@@ -22,8 +22,6 @@ urlpatterns = [
     path("",views.index, name="index"),
     path("question/",views.index, name="list"),
     path("question/<int:question_id>/",views.singleQuestion, name="question"),
-    path("anw/<int:pk>/like",views.AddLike.as_view(), name="like"),
-    path("anw/<int:pk>/dislike",views.AddDislike.as_view(), name="dislike"),
     path("question/<int:question_id>/det/",views.PreguntaDetailView, name="detalles"),
     path('question/<int:pk>/delete/', views.PreguntaDeleteView.as_view(), name = 'pregunta-delete'),
     path('question/<int:pk>/update/', views.PreguntaUpdateView.as_view(), name = 'pregunta-update'),
@@ -33,9 +31,5 @@ urlpatterns = [
     path("logout/", views.logout, name = "logout"),
     path("login/", views.login, name = "login"),
     path('createuser/', views.SignUp, name="SignUp"),
-
-    path('question/delete/', views.PreguntaDeleteView.as_view(), name = 'pregunta-delete'),
-    path('question/update/', views.PreguntaUpdateView.as_view(), name = 'pregunta-update'),
-
 
 ]

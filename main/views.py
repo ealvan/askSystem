@@ -155,48 +155,6 @@ def singleQuestion(request,question_id):
     }
     return render(request, "main/singleQuestion.html",context)
 
-class AddLike(LoginRequiredMixin, View):
-    def post(self, request, pk, *args, **kwargs):
-        post = Respuesta.objects.get(pk=pk)
-
-        is_dislike = False
-
-        for dislike in post.dislike.all():
-            if dislike == request.user:
-                is_dislike = True
-                break
-
-        if is_dislike:
-            post.dislike.remove(request.user)
-
-        is_like = False
-
-        for like in post.like.all():
-            if like == request.user:
-                is_like = True
-                break
-
-        if not is_like:
-            post.like.add(request.user)
-
-        if is_like: 
-            post.like.remove(request.user)
-
-        next = request.POST.get('next', '/')
-        return HttpResponseRedirect(next)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def createReply(request,username, question_id):
@@ -316,12 +274,7 @@ class PreguntaUpdateView(UpdateView):
         'categoria',
         'titulo',
         'descripcion',
-<<<<<<< HEAD
         'keywords',   
-=======
-        'confiable',
-        'keywords',
->>>>>>> c634ad3bce7aef47392b1ac1e5834c1e8d4fed0e
     }
 
 '''
