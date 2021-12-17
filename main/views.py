@@ -15,6 +15,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from django.contrib.auth import logout as do_logout
 
+from .forms import SignUpForm
 # Create your views here.
 def index(request):
     preguntas = Pregunta.objects.all()
@@ -28,7 +29,7 @@ def preguntas(request):
     context = {
         "lista":preguntas
     }
-    return render(request,"resultados.html",context)  
+    return render(request,"resultados.html",context)
 
 def resultados(request):
     if request.method == "POST":
@@ -49,7 +50,7 @@ def resultados(request):
                     Q(titulo__icontains = busqueda) |
                     Q(keywords__icontains = busqueda)
                     ).distinct()
-            
+
         return render(request,'resultados.html',{'preguntas':preguntas})
     else:
         return render(request,'resultados.html',{})
@@ -66,7 +67,7 @@ def rawListQuestion(request):
     context = {
         "lista":confiables
     }
-    return render(request,"main/rawListQuestions.html",context)    
+    return render(request,"main/rawListQuestions.html",context)
 
 
 def singleQuestion(request,question_id):
@@ -79,7 +80,7 @@ def singleQuestion(request,question_id):
             rptaObj = Respuesta.objects.get(id=rptaId)
         except:
             raise ValueError("Error al tratar con el **request.GET**")
-        
+
         if typo == "like":
             rptaObj.likes += 1
         elif typo == "dislike":
@@ -114,13 +115,13 @@ def createReply(request,username, question_id):
                 "form":form,
             }
 
-            return render(request,"main/createReply.html",context)            
+            return render(request,"main/createReply.html",context)
         else:
             return render(request,"main/createReply.html")
     else:
         user = get_object_or_404(Usuario, id = username)
         question = get_object_or_404(Pregunta, id=question_id)
-        
+
         form = create_reply(request.POST)
         # pp.pprint(form.cleaned_data.get("descripcion"))
         if form.is_valid():
@@ -137,10 +138,10 @@ def createReply(request,username, question_id):
                 myCleanReply.save()
             except:
                 print("********NO SE PUDO GUARDAR BIEN!!!")
-                return render(request,"main/rawListQuestions.html")    
-            
+                return render(request,"main/rawListQuestions.html")
+
             # myCleanReply.save()
-            #return render(request,"main/rawListQuestions.html") 
+            #return render(request,"main/rawListQuestions.html")
             # # form.save()
             # pp.pprint(form.cleaned_data)
             #reverse() returns a string. form_valid() is supposed to return HTTP responses, not strings.
@@ -148,7 +149,7 @@ def createReply(request,username, question_id):
 
         else:
             print("EL FORMULARIO NO ES VALIDO")
-    
+
     return render(request,"main/createReply.html")
 
 '''
@@ -160,7 +161,7 @@ def createReply(request,question_id):
             context = {
                 "question":question
             }
-            return render(request,"main/createReply.html",context)            
+            return render(request,"main/createReply.html",context)
         else:
             return render(request,"main/createReply.html")
     else:
@@ -180,7 +181,7 @@ class PreguntaListView(ListView):
     model = Pregunta
 
 def PreguntaCreateView(request):
-    
+
     form = PreguntaForm(request.POST or None, initial = {'usuario': request.user})
     if form.is_valid():
         form.save()
@@ -189,7 +190,7 @@ def PreguntaCreateView(request):
     context = {
         'form': form
     }
-    return render(request, 'main/pregunta_form.html', context) 
+    return render(request, 'main/pregunta_form.html', context)
 '''
 if request.method == "POST":
         busqueda = request.POST.get("categoria")
@@ -217,7 +218,7 @@ class PreguntaUpdateView(UpdateView):
         'titulo',
         'descripcion',
         'confiable',
-        'keywords',   
+        'keywords',
     }
 
 def getUrlsandParse(descrp):
@@ -235,7 +236,7 @@ def login(request):
 			return HttpResponseRedirect(reverse('index'))
 		else:
 			messages.info(request, 'Datos incorrectos')
-			return HttpResponseRedirect(reverse('login  '))
+			return HttpResponseRedirect(reverse('login'))
 	else:
 		return render(request, 'login.html')
 
@@ -243,3 +244,11 @@ def logout(request):
 	#auth.logout(request)
 	do_logout(request)
 	return HttpResponseRedirect(reverse('index'))
+def SignUp(request):
+    form = SignUpForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect('/')
+    else:
+        form = SignUpForm()
+    return render(request, 'register.html', {'form': form})
