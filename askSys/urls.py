@@ -31,5 +31,6 @@ urlpatterns = [
     path("logout/", views.logout, name = "logout"),
     path("login/", views.login, name = "login"),
     path('createuser/', views.SignUp, name="SignUp"),
-
+    #grafico
+    path("question/<int:question_id>/grafico/",views.PreguntaGraficoView, name="pregunta-grafico"),
 ]

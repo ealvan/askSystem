@@ -92,6 +92,9 @@ class Pregunta(models.Model):
     def get_absolute_url(self):
         return reverse('question', kwargs={'question_id': self.id})
 
+    def get_respuestas(self):
+        return Respuesta.objects.filter(pregunta = self.id)
+
 
 class Respuesta(models.Model):
     usuario = models.ForeignKey(Usuario,on_delete=models.PROTECT,null=True,blank=True)

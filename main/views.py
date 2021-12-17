@@ -329,3 +329,29 @@ def SignUp(request):
     else:
         form = SignUpForm()
     return render(request, 'register.html', {'form': form})
+
+#grafico pregunta
+
+def PreguntaDetailView(request, question_id):
+    obj = get_object_or_404(Pregunta, id = question_id)
+    context = {
+        'object': obj
+    }
+    return render(request, 'main/pregunta_detail.html', context)
+
+def PreguntaGraficoView(request, question_id):
+    obj = get_object_or_404(Pregunta, id = question_id)
+    respuestasDes = []
+    likes = []
+    dislikes = []
+    for r in obj.get_respuestas():
+        respuestasDes.append(r.descripcion)
+        likes.append(r.likes)
+        dislikes.append(r.dislikes)
+    context = {
+        'titulo': obj.titulo,
+        'respuestasDes': respuestasDes,
+        'likes': likes,
+        'dislikes': dislikes,
+    }
+    return render(request, 'main/pregunta_grafico.html', context)
