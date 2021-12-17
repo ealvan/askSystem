@@ -23,12 +23,21 @@
                         <img src='{{rpta.url_img}}' width="200" height="200"></img>
                         
                         <ul>
-                            <form method="GET" id="form{{rpta.id}}">
-                                <li><input type="hidden" id="rpta{{rpta.id}}" value="{{rpta.id}}"></li><!--No borren esto, sino no funciona-->
-                                <li>&#128077;: <button type="submit" id="l{{rpta.id}}" class="like">{{rpta.likes}}</button></li>
-                                <li>&#128078;:<button type="submit" id="d{{rpta.id}}" class="dislike">{{rpta.dislikes}}</button></li>    
+                            
+                            <form method="POST" action="/question/{{question.id}}/">
+                                {% csrf_token %}
+                                <input name="type" type="hidden" value="like">
+                                <input name="rptaId" type="hidden" value="{{rpta.id}}">
+                                <li>&#128077;: <button class="like">{{rpta.like.all.count}}</button></li>
                             </form>
-                            <li>&#128078;:<button id="u{{rpta.id}}" class="dislike">{{rpta.dislikes}}</button></li>
+
+                            <form method="POST" action="/question/{{question.id}}/">
+                                {% csrf_token %}
+                                <input name="type" type="hidden" value="dislike">
+                                <input name="rptaId" type="hidden" value="{{rpta.id}}">
+                                <li>&#128078;: <button class="dislike">{{rpta.dislike.all.count}}</button></li>
+                            </form>
+
                         </ul>                                 
                     </section>
                 {% endfor %}
@@ -45,6 +54,7 @@
         {% endif %}
     </body> 
     <script >
+        /*
         function main(){
             forms_items_like = document.getElementsByClassName("like");
             forms_items_dislike = document.getElementsByClassName("dislike");
@@ -74,14 +84,14 @@
             let val = idrpta;
             sendStrData+="&rptaId="+val;
             window.location.href = sendStrData;
-        }
+        }*/
         
-        document.getElementById("addReply").onclick = function () {
+        //document.getElementById("addReply").onclick = function () {
         //     //es por ID,pero quiero que sea por nombre, asi que, se debe hacer el Login Alex Chaco, haces el login si ves esto
-        location.href = "{% url 'reply' username=1 question_id=question.id %}";
-        };
+        //location.href = "{% url 'reply' username=1 question_id=question.id %}";
+        //};
          
-        main();
+        //main();
         //http://127.0.0.1:8000/askSystem/1/?type=dislike&cantidad=1&rptaId=1
 
     </script>

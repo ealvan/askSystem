@@ -102,5 +102,8 @@ class Respuesta(models.Model):
     descripcion = models.TextField(null=False,blank=False)
     url_img = models.TextField(null=True,blank=True)
     #se crea con 0 y 0 al inicio
+    like = models.ManyToManyField(Usuario, blank=True,related_name="likes")
+    dislike = models.ManyToManyField(Usuario, blank=True,related_name="dislikes")
+
     likes = models.IntegerField(default= 0)
     dislikes = models.IntegerField(default=0)

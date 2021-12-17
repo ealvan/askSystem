@@ -14,6 +14,8 @@ import re
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from django.contrib.auth import logout as do_logout
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.views import View
 
 # Create your views here.
 def index(request):
@@ -29,6 +31,7 @@ def preguntas(request):
         "lista":preguntas
     }
     return render(request,"resultados.html",context)  
+
 
 def resultados(request):
     if request.method == "POST":
@@ -88,10 +91,112 @@ def singleQuestion(request,question_id):
             print("ERROR de typo :", typo)
         rptaObj.save()
     question = Pregunta.objects.get(id=question_id)
+
+    if request.method == 'POST':
+        tipo = request.POST.get("type")
+
+        if tipo == "like":
+            post = Respuesta.objects.get(pk= request.POST.get("rptaId"))
+            print(post)
+            is_dislike = False
+
+            for dislike in post.dislike.all():
+                if dislike == request.user:
+                    is_dislike = True
+                    break
+
+            if is_dislike:
+                post.dislike.remove(request.user)
+
+            is_like = False
+
+            for like in post.like.all():
+                if like == request.user:
+                    is_like = True
+                    break
+
+            if not is_like:
+                post.like.add(request.user)
+
+            if is_like: 
+                post.like.remove(request.user)
+
+            return HttpResponseRedirect(reverse('question', kwargs={"question_id": question_id }))
+
+        if tipo == "dislike":
+            post = Respuesta.objects.get(pk=request.POST.get("rptaId"))
+            is_like = False
+
+            for like in post.like.all():
+                if like == request.user:
+                    is_like = True
+                    break
+
+            if is_like:
+                post.like.remove(request.user)
+
+            is_dislike = False
+
+            for dislike in post.dislike.all():
+                if dislike == request.user:
+                    is_dislike = True
+                    break
+
+            if not is_dislike:
+                post.dislike.add(request.user)
+
+            if is_dislike:
+                post.dislike.remove(request.user)
+            return HttpResponseRedirect(reverse('question', kwargs={"question_id": question_id }))
+
     context = {
         "question": question,
     }
     return render(request, "main/singleQuestion.html",context)
+
+class AddLike(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        post = Respuesta.objects.get(pk=pk)
+
+        is_dislike = False
+
+        for dislike in post.dislike.all():
+            if dislike == request.user:
+                is_dislike = True
+                break
+
+        if is_dislike:
+            post.dislike.remove(request.user)
+
+        is_like = False
+
+        for like in post.like.all():
+            if like == request.user:
+                is_like = True
+                break
+
+        if not is_like:
+            post.like.add(request.user)
+
+        if is_like: 
+            post.like.remove(request.user)
+
+        next = request.POST.get('next', '/')
+        return HttpResponseRedirect(next)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def createReply(request,username, question_id):
     # print("Question ID: ",question_id)
@@ -167,11 +272,6 @@ def createReply(request,question_id):
         form = CreateReply(request.POST)
 
     return render(request,"main/createReply.html")
-
-
-
-
-
 '''
 
 
@@ -262,3 +362,64 @@ def logout(request):
 	#auth.logout(request)
 	do_logout(request)
 	return HttpResponseRedirect(reverse('index'))
+
+
+class AddLike(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        post = Respuesta.objects.get(pk=pk)
+
+        is_dislike = False
+
+        for dislike in post.dislike.all():
+            if dislike == request.user:
+                is_dislike = True
+                break
+
+        if is_dislike:
+            post.dislike.remove(request.user)
+
+        is_like = False
+
+        for like in post.like.all():
+            if like == request.user:
+                is_like = True
+                break
+
+        if not is_like:
+            post.like.add(request.user)
+
+        if is_like: 
+            post.like.remove(request.user)
+
+        next = request.POST.get('next', '/')
+        return HttpResponseRedirect(next)
+
+class AddDislike(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        post = Respuesta.objects.get(pk=pk)
+
+        is_like = False
+
+        for like in post.like.all():
+            if like == request.user:
+                is_like = True
+                break
+
+        if is_like:
+            post.like.remove(request.user)
+
+        is_dislike = False
+
+        for dislike in post.dislike.all():
+            if dislike == request.user:
+                is_dislike = True
+                break
+
+        if not is_dislike:
+            post.dislike.add(request.user)
+
+        if is_dislike:
+            post.dislike.remove(request.user)
+
+        next = request.POST.get('next', '/')
+        return HttpResponseRedirect(next)
