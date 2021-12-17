@@ -9,7 +9,11 @@ import re
 
 # Create your views here.
 def index(request):
-    return render(request,'base.html',{})
+    preguntas = Pregunta.objects.all()
+    context = {
+        "lista":preguntas
+    }
+    return render(request,"base.html",context)    
 
 def resultados(request):
     if request.method == "POST":

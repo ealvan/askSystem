@@ -20,6 +20,10 @@ from main import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",views.index, name="index"),
+    path("question/<int:question_id>/",views.singleQuestion, name="question"),
+    path("question/ask",views.PreguntaCreateView, name="ask"),
+    path("reply/<int:username>/<int:question_id>/",views.createReply,name="reply"),
+
     path("search",views.resultados, name="resultados"),
     path("askSystem/",include("main.urls")),
 ]

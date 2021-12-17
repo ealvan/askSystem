@@ -66,9 +66,9 @@
             // console.log("ID: ",this.id);
             let sendStrData = URL_WEB;
             if(rawId.slice(0,1) == "l" ){
-                sendStrData += "askSystem/pregunta/{{question.id}}/?type=like";
+                sendStrData += "reply/{{question.id}}/?type=like";
             }else if(rawId.slice(0,1) == "d" || rawId.slice(0,1)=="u"){
-                sendStrData += "askSystem/pregunta/{{question.id}}/?type=dislike";
+                sendStrData += "reply/{{question.id}}/?type=dislike";
             }
             let idrpta = rawId.slice(1,rawId.length)
             let val = idrpta;
@@ -78,7 +78,7 @@
         
         document.getElementById("addReply").onclick = function () {
         //     //es por ID,pero quiero que sea por nombre, asi que, se debe hacer el Login Alex Chaco, haces el login si ves esto
-        location.href = "{% url 'main:createReply' username=1 question_id=question.id %}";
+        location.href = "{% url 'reply' username=1 question_id=question.id %}";
         };
          
         main();
