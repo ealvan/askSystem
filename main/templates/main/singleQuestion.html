@@ -86,10 +86,10 @@
             window.location.href = sendStrData;
         }*/
         
-        //document.getElementById("addReply").onclick = function () {
-        //     //es por ID,pero quiero que sea por nombre, asi que, se debe hacer el Login Alex Chaco, haces el login si ves esto
-        //location.href = "{% url 'reply' username=1 question_id=question.id %}";
-        //};
+        document.getElementById("addReply").onclick = function () {
+             //es por ID,pero quiero que sea por nombre, asi que, se debe hacer el Login Alex Chaco, haces el login si ves esto
+        location.href = "{% url 'reply' username=1 question_id=question.id %}";
+        };
          
         //main();
         //http://127.0.0.1:8000/askSystem/1/?type=dislike&cantidad=1&rptaId=1

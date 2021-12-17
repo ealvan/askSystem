@@ -12,7 +12,7 @@
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Registrarse</a>
+            <a class="nav-link" href="{% url 'SignUp' %}">Registrarse</a>
           </li>
           <li class="nav-item">
             {% if user.is_authenticated %}
