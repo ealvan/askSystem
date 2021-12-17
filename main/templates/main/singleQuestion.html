@@ -15,17 +15,21 @@
                     <section class="descripcionSection">
                         <h2>Descripcion: </h2>
                         <p class="bodyDescripcion">
-                            {{rpta.descripcion}}
+                            {{rpta.descripcion|safe}}
+                            <!-- holamfdaada <img alt="dadsa" src="dafaURL.jpg"> -->
+                            
                         </p>
+                        <br>
+                        <img src='{{rpta.url_img}}' width="200" height="200"></img>
                         
                         <ul>
-                            <form method="GET">
-                                <li><input type="hidden" id="idRpta" value="{{rpta.id}}"></li><!--No borren esto, sino no funciona-->
-                                <li>&#128077;: <button type="submit" id="like">{{rpta.likes}}</button></li>
-                                <li>&#128078;:<button type="submit" id="dislike">{{rpta.dislikes}}</button></li>    
+                            <form method="GET" id="form{{rpta.id}}">
+                                <li><input type="hidden" id="rpta{{rpta.id}}" value="{{rpta.id}}"></li><!--No borren esto, sino no funciona-->
+                                <li>&#128077;: <button type="submit" id="l{{rpta.id}}" class="like">{{rpta.likes}}</button></li>
+                                <li>&#128078;:<button type="submit" id="d{{rpta.id}}" class="dislike">{{rpta.dislikes}}</button></li>    
                             </form>
-                            <!-- <li>&#128078;:<button id="utils">{{rpta.dislikes}}</button></li> -->
-                        </ul>                                     
+                            <li>&#128078;:<button id="u{{rpta.id}}" class="dislike">{{rpta.dislikes}}</button></li>
+                        </ul>                                 
                     </section>
                 {% endfor %}
                 
@@ -41,49 +45,44 @@
         {% endif %}
     </body> 
     <script >
-        console.log("Helloqorld");
-        const URL_WEB = "http://127.0.0.1:8000/"
-
-        var likeButton = document.getElementById("like");
-        var dislikeButton = document.getElementById("dislike");
- 
-        //var utils = document.getElementById("utils");
-        
         function main(){
-            if(likeButton == null || dislikeButton == null){
-                console.error("Error de like or dislike button");
-                return;
+            forms_items_like = document.getElementsByClassName("like");
+            forms_items_dislike = document.getElementsByClassName("dislike");
+            for(let item of forms_items_like){
+                item.addEventListener("click",sendData);
+            }
+            for(let item of forms_items_dislike){
+                item.addEventListener("click",sendData);
             }
 
-            likeButton.addEventListener("click",sendData);
-            dislikeButton.addEventListener("click",sendData);
-        }
-        //utils.addEventListener("click",sendData);
-        function sendData(){
-            // console.log(this.textContent);
-            let numero = this.textContent;
-            console.log("ID: ",this.id);
-            let sendStrData = URL_WEB;
-            if(this.id == "like" ){
-                sendStrData += "askSystem/{{question.id}}/?type=like"+"&cantidad="+this.textContent;
-            }else if(this.id == "dislike" || this.id=="utils"){
-                sendStrData += "askSystem/{{question.id}}/?type=dislike"+"&cantidad="+this.textContent;
-            }
-            let idRpta = document.getElementById("idRpta");
-            if(idRpta == null){
-                console.log("Error en idRpta");
-                return;
-            }
-            id = idRpta.value;
-            sendStrData+="&rptaId="+id;
-            console.log(sendStrData);
-            window.location.href = sendStrData;
         }
         main();
+        // console.log("Helloqorld");
+        const URL_WEB = "http://127.0.0.1:8000/"
+        function sendData(){
+            //console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA","{{rpta.id}}");
+            // console.log(this.textContent);
+            let rawId = this.id;
+            // console.log("ID: ",this.id);
+            let sendStrData = URL_WEB;
+            if(rawId.slice(0,1) == "l" ){
+                sendStrData += "askSystem/pregunta/{{question.id}}/?type=like";
+            }else if(rawId.slice(0,1) == "d" || rawId.slice(0,1)=="u"){
+                sendStrData += "askSystem/pregunta/{{question.id}}/?type=dislike";
+            }
+            let idrpta = rawId.slice(1,rawId.length)
+            let val = idrpta;
+            sendStrData+="&rptaId="+val;
+            window.location.href = sendStrData;
+        }
+        
         document.getElementById("addReply").onclick = function () {
-            location.href = "{% url 'main:createReply' question.id %}";
+        //     //es por ID,pero quiero que sea por nombre, asi que, se debe hacer el Login Alex Chaco, haces el login si ves esto
+        location.href = "{% url 'main:createReply' username=1 question_id=question.id %}";
         };
-//http://127.0.0.1:8000/askSystem/1/?type=dislike&cantidad=1&rptaId=1
+         
+        main();
+        //http://127.0.0.1:8000/askSystem/1/?type=dislike&cantidad=1&rptaId=1
 
     </script>
 </html>

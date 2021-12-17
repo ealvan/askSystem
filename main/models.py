@@ -96,12 +96,11 @@ class Pregunta(models.Model):
 class Respuesta(models.Model):
     usuario = models.ForeignKey(Usuario,on_delete=models.PROTECT,null=True,blank=True)
     pregunta = models.ForeignKey(Pregunta,on_delete=models.CASCADE)
-    
+    #imgs = models.TextField(null=True,blank=True)
     #queria agregarle titulo, pero creo esta demas
     #titulo = models.CharField(max_length=100,null=False,blank=False)
     descripcion = models.TextField(null=False,blank=False)
+    url_img = models.TextField(null=True,blank=True)
     #se crea con 0 y 0 al inicio
     likes = models.IntegerField(default= 0)
     dislikes = models.IntegerField(default=0)
-
-

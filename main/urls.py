@@ -26,6 +26,6 @@ urlpatterns=[
     path("pregunta/<int:question_id>/",views.singleQuestion,name="singleQuestion"),
     #path('listar', views.PreguntaListView.as_view(), name = 'pregunta-list'),
     path('crearPregunta/',views.PreguntaCreateView, name = 'pregunta-create'),
-    path("crearRpta/<int:question_id>/",views.createReply,name="createReply"),
+    path("crearRpta/<int:username>/<int:question_id>/",views.createReply,name="createReply"),
     path('table/<int:pk>/', views.PreguntaDetailView, name = 'pregunta-detail'),
 ]
