@@ -144,7 +144,7 @@ def createReply(request,username, question_id):
             # # form.save()
             # pp.pprint(form.cleaned_data)
             #reverse() returns a string. form_valid() is supposed to return HTTP responses, not strings.
-            return HttpResponseRedirect(reverse('question', kwargs={"question_id":1 }))
+            return HttpResponseRedirect(reverse('question', kwargs={"question_id": question_id }))
 
         else:
             print("EL FORMULARIO NO ES VALIDO")
@@ -198,8 +198,8 @@ if request.method == "POST":
         confiable = request.POST.get("keywords")
 
 '''
-def PreguntaDetailView(request, pk):
-    obj = get_object_or_404(Pregunta, id = pk)
+def PreguntaDetailView(request, question_id):
+    obj = get_object_or_404(Pregunta, id = question_id)
     context = {
         'object': obj
     }
@@ -207,7 +207,22 @@ def PreguntaDetailView(request, pk):
 
 class PreguntaDeleteView(DeleteView):
     model = Pregunta
-    success_url = reverse_lazy('preguntas:pregunta-list')
+    success_url = reverse_lazy('list')
+
+class PreguntaUpdateView(UpdateView):
+    model = Pregunta
+    fields = {
+        'categoria',
+        'titulo',
+        'descripcion',
+        'keywords',   
+    }
+
+'''
+def PreguntaDeleteView(request, question_id):
+    obj = get_object_or_404(Pregunta, id = question_id)
+    obj.delete()
+    return HttpResponseRedirect(reverse('question'))
 
 class PreguntaUpdateView(UpdateView):
     model = Pregunta
@@ -217,9 +232,13 @@ class PreguntaUpdateView(UpdateView):
         'titulo',
         'descripcion',
         'confiable',
-        'keywords',   
-    }
+       
 
+
+
+
+
+'''
 def getUrlsandParse(descrp):
     re.findall(r"{*}")
     # return descrip

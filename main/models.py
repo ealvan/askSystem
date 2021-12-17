@@ -90,7 +90,7 @@ class Pregunta(models.Model):
     keywords = models.TextField(null=False,blank=False)
 
     def get_absolute_url(self):
-        return reverse('main:pregunta-detail', kwargs={'pk': self.id})
+        return reverse('question', kwargs={'question_id': self.id})
 
 
 class Respuesta(models.Model):

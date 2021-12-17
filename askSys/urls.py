@@ -20,15 +20,14 @@ from main import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",views.index, name="index"),
-    path("question/",views.index, name="question"),
+    path("question/",views.index, name="list"),
     path("question/<int:question_id>/",views.singleQuestion, name="question"),
+    path("question/<int:question_id>/det/",views.PreguntaDetailView, name="detalles"),
+    path('question/<int:pk>/delete/', views.PreguntaDeleteView.as_view(), name = 'pregunta-delete'),
+    path('question/<int:pk>/update/', views.PreguntaUpdateView.as_view(), name = 'pregunta-update'),
     path("question/ask",views.PreguntaCreateView, name="ask"),
     path("reply/<int:username>/<int:question_id>/",views.createReply,name="reply"),
     path("search",views.resultados, name="search"),
     path("logout/", views.logout, name = "logout"),
     path("login/", views.login, name = "login"),
-
-    
-    path('question/delete/', views.PreguntaDeleteView.as_view(), name = 'pregunta-delete'),
-    path('question/update/', views.PreguntaUpdateView.as_view(), name = 'pregunta-update'),
 ]

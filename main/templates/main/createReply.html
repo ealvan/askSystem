@@ -13,7 +13,7 @@
                 <p>Usuario : <em>{{usuario.username}}</em></p>
                 <form method="POST">{% csrf_token %}
                     {{form.as_p }}
-                    <input type="submit" value="Crear Respuesta!!">
+                    <input type="submit" value="Guardar">
                 </form>
                 <div>
                     {{form.errors}}
