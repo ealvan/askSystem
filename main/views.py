@@ -16,7 +16,14 @@ def index(request):
     context = {
         "lista":preguntas
     }
-    return render(request,"base.html",context)    
+    return render(request,"base.html",context)
+
+def preguntas(request):
+    preguntas = Pregunta.objects.all()
+    context = {
+        "lista":preguntas
+    }
+    return render(request,"resultados.html",context)  
 
 def resultados(request):
     if request.method == "POST":
