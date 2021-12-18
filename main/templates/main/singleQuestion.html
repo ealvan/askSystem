@@ -4,23 +4,27 @@
         <title>Preguntas Confiables</title>
     </head>
     <body>
+        <li><a href="/">Volver</a></li>
         {% if question %}
             <section class="pregconfia">
                 <h2> {{question.titulo}} </h2>
                 <p>{{question.descripcion}}</p>
             </section>
             {% if question.respuesta_set.all %}
+                <h2>Respuestas:</h2>
 
                 {% for rpta in question.respuesta_set.all %}
                     <section class="descripcionSection">
-                        <h2>Descripcion: </h2>
+                        <h3>Descripcion: </h3>
                         <p class="bodyDescripcion">
                             {{rpta.descripcion|safe}}
                             <!-- holamfdaada <img alt="dadsa" src="dafaURL.jpg"> -->
                             
                         </p>
-                        <br>
-                        <img src='{{rpta.url_img}}' width="200" height="200"></img>
+                        {% if rpta.url_img %}
+                            <br>
+                            <img src='{{rpta.url_img}}' width="200" height="200"></img>
+                        {% endif %}
                         
                         <ul>
                             
