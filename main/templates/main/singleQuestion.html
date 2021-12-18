@@ -1,5 +1,42 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
+=======
+    <head>
+        <title>Preguntas Confiables</title>
+    </head>
+    <body>
+        <li><a href="/">Volver</a></li>
+        {% if question %}
+            <section class="pregconfia">
+                <h2> {{question.titulo}} </h2>
+                <p>{{question.descripcion}}</p>
+            </section>
+            {% if question.respuesta_set.all %}
+                <h2>Respuestas:</h2>
+
+                {% for rpta in question.respuesta_set.all %}
+                    <section class="descripcionSection">
+                        <h3>Descripcion: </h3>
+                        <p class="bodyDescripcion">
+                            {{rpta.descripcion|safe}}
+                            <!-- holamfdaada <img alt="dadsa" src="dafaURL.jpg"> -->
+                            
+                        </p>
+                        {% if rpta.url_img %}
+                            <br>
+                            <img src='{{rpta.url_img}}' width="200" height="200"></img>
+                        {% endif %}
+                        
+                        <ul>
+                            
+                            <form method="POST" action="/question/{{question.id}}/">
+                                {% csrf_token %}
+                                <input name="type" type="hidden" value="like">
+                                <input name="rptaId" type="hidden" value="{{rpta.id}}">
+                                <li>&#128077;: <button class="like">{{rpta.like.all.count}}</button></li>
+                            </form>
+>>>>>>> a08f3ca81dd26123e610493caff2efded5ecb473
 
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">

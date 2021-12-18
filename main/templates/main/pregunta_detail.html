@@ -5,9 +5,11 @@
 {% block body %}
 <h1> Detalle de Preguntas </h1>
 <h2> {{ object.titulo }} </h2>
-<p> <b>Usuario:</b> {{ object.usuario }} </p>
-<p> <b>Descripcion:</b> {{ object.descripcion }} </p>
-<p> <b>Categoria:</b> {{ object.categoria.nombre }} </p>
-<p> <b>Confiable:</b> {{ object.confiable }} </p>
-<p> <b>Palabras clave:</b> {{ object.keywords }} </p>
+<ul class="list-group">
+    <li class="list-group-item"><p> <b>Usuario:</b> {{ object.usuario }} </p></li>
+    <li class="list-group-item"><p> <b>Descripcion:</b> {{ object.descripcion }} </p></li>
+    <li class="list-group-item"><p> <b>Categoria:</b> {{ object.categoria.nombre }} </p></li>
+    <li class="list-group-item"><p> <b>Confiable:</b> {{ object.confiable }} </p></li>
+    <li class="list-group-item"><p> <b>Palabras clave:</b> {{ object.keywords }} </p></li>
+</ul>
 {% endblock %}
