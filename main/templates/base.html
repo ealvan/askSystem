@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="es">
 
@@ -16,8 +17,13 @@
 </head>
 
 <body>
+  <br><br>
 
-  {% include 'navgar.html' %}
+    {% include 'navgar.html' %}
+  
+    {% block content %}
+        
+    {% endblock content %}
 
 
   <!-- Aca que vaya encajado la lista de preguntas reseintes, un cuadrito rectangular -->
