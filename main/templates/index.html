@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% block contenido %}
+
+<a name="resentQuestions"></a>
+  <br>
+  <div class="container marketing">
+    <hr class="featurette-divider">
+
+    <div class="row featurette px-5">
+      <div class="col-md-7">
+
+        <!-- Le puse el buscador provisional aca, esto debería estar en el nav -->
+
+        {% if lista %}
+        <section>
+          <h3>Actualmente: </h3>
+          <p>Hay {{ lista|length }} preguntas en este momento</p>
+        </section>
+        <div>
+          {% for pregconf in lista %}
+          <section class="pregconfia">
+            <h2> <a href="{% url 'question' pregconf.id %}">{{pregconf.titulo}}</a></h2>
+            <p>{{pregconf.descripcion}}</p>
+            <p>Usuario: <em>{{pregconf.usuario.username}}</em></p>
+          </section>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p><b>Lo sentimos no hay preguntas todavia</b></p>
+        <!-- insertar aqui algo para la url de la pagina home
+            que felman esta haciendo
+            <button ></button>
+        -->
+
+        {% endif %}
+      </div>
+    </div>
+
+
+
+
+
+
+    <a name="principio"></a>
+    <br><br><br>
+    <div class="container px-5">
+      <div class="row align-items-center">
+        <div class="col">
+          <div class="card" style="width: 18rem; height: 22rem;">
+            <img src="static/sobreNosotros.jpg" class="card-img-top" alt="..." width="18xp" height="150xp">
+            <div class="card-body">
+              <h5 class="card-title">'¿Que es /name/?</h5>
+              <p class="card-text">Conoce mas sobre la pagina.</p>
+              <a href="#sobreNosotros" class="btn btn-danger">Ir</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card" style="width: 18rem; height: 22rem;">
+            <img src="static/reglas.jpg" class="card-img-top" alt="..." width="18xp" height="150xp">
+            <div class="card-body">
+              <h5 class="card-title">Reglas</h5>
+              <p class="card-text">Enterate de las normas que contiene la plataforma.</p>
+              <a href="#reglas" class="btn btn-danger">Ir</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card" style="width: 18rem; height: 22rem;">
+            <img src="static/manual.jpg" class="card-img-top" alt="..." width="18xp" height="150xp">
+            <div class="card-body">
+              <h5 class="card-title">Aprende a usarlo</h5>
+              <p class="card-text">Te ensaños a usar nuestra plataforma de una manera facil y sencilla.</p>
+              <a href="#manual" class="btn btn-danger">Ir</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a name="sobreNosotros"></a>
+    <br>
+    <div class="container marketing">
+      <hr class="featurette-divider">
+
+      <div class="row featurette px-5">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">¿Que es /name/? <span class="text-muted">Enterate mas.</span></h2>
+          <p class="lead">/name/ es un sistema de tutoriales...</p>
+        </div>
+        <div class="col-md-5">
+          <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+            height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+            preserveAspectRatio="xMidYMid slice" focusable="false">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
+          </svg>
+        </div>
+      </div>
+
+
+      <a name="reglas"></a><br>
+      <hr class="featurette-divider"><br>
+      <div class="row featurette px-5">
+        <div class="col-md-7">
+          <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+            height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+            preserveAspectRatio="xMidYMid slice" focusable="false">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
+          </svg>
+        </div>
+        <div class="col-md-5">
+          <h2 class="featurette-heading">Normas a seguir. <span class="text-muted">Informate para no ser baneado.</span>
+          </h2>
+          <p class="lead">/name/ presenta unas cuantas normas...</p>
+        </div>
+      </div>
+      <a name="manual"></a><br>
+      <hr class="featurette-divider"><br>
+      <div class="row featurette px-5">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Manual del sistema. <span class="text-muted">Aprende a como usarlo
+              correctamente.</span></h2>
+          <p class="lead">/name/ es secncillo de usar...</p>
+        </div>
+        <div class="col-md-5">
+          <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+            height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+            preserveAspectRatio="xMidYMid slice" focusable="false">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
+          </svg>
+        </div>
+      </div>
+      <br>
+    </div>
+
+{% endblock contenido %}

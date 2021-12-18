@@ -19,165 +19,160 @@
 <body>
   <br><br>
 
-    {% include 'navgar.html' %}
+  {% include 'navgar.html' %}
   
-    {% block content %}
-        
-    {% endblock content %}
+ 
+<a name="resentQuestions"></a>
+
+<div class="container marketing">
+  <hr class="featurette-divider">
+
+  
+    {% if lista %}
+      <!-- Le puse el buscador provisional aca, esto debería estar en el nav -->
+      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="static/carrusel-1.jpg" class="d-block w-100" alt="..." width="50xp" height="300xp">
+            <div class="carousel-caption d-none d-md-block">
+              <h1>Actualmente: </h2>
+              <h2>Hay {{ lista|length }} preguntas en este momento</h2>
+            </div>
+          </div>
+          {% for pregconf in lista %}
+          <div class="carousel-item">
+            <img src="static/carrusel-2.jpg" class="d-block w-100" alt="..." width="50xp" height="300xp">
+            <div class="carousel-caption d-none d-md-block">
+              <h1> <a href="{% url 'question' pregconf.id %}">{{pregconf.titulo}}</a></h1>
+              <h4>{{pregconf.descripcion}}</h4>
+              <h4>Usuario: <em>{{pregconf.usuario.username}}</em></h4>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    {% else %}
+    <p><b>Lo sentimos no hay preguntas todavia</b></p>
+      <!-- insertar aqui algo para la url de la pagina home
+          que felman esta haciendo
+          <button ></button>
+      -->
+    {% endif %}
+   
 
 
-  <!-- Aca que vaya encajado la lista de preguntas reseintes, un cuadrito rectangular -->
+  <a name="principio"></a>
+  <br><br><br>
+  <div class="container px-5">
+    <div class="row align-items-center">
+      <div class="col">
+        <div class="card" style="width: 18rem; height: 22rem;">
+          <img src="static/sobreNosotros.jpg" class="card-img-top" alt="..." width="18xp" height="150xp">
+          <div class="card-body">
+            <h5 class="card-title">'¿Que es /name/?</h5>
+            <p class="card-text">Conoce mas sobre la pagina.</p>
+            <a href="#sobreNosotros" class="btn btn-danger">Ir</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card" style="width: 18rem; height: 22rem;">
+          <img src="static/reglas.jpg" class="card-img-top" alt="..." width="18xp" height="150xp">
+          <div class="card-body">
+            <h5 class="card-title">Reglas</h5>
+            <p class="card-text">Enterate de las normas que contiene la plataforma.</p>
+            <a href="#reglas" class="btn btn-danger">Ir</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card" style="width: 18rem; height: 22rem;">
+          <img src="static/manual.jpg" class="card-img-top" alt="..." width="18xp" height="150xp">
+          <div class="card-body">
+            <h5 class="card-title">Aprende a usarlo</h5>
+            <p class="card-text">Te ensaños a usar nuestra plataforma de una manera facil y sencilla.</p>
+            <a href="#manual" class="btn btn-danger">Ir</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-
-
-  <a name="resentQuestions"></a>
+  <a name="sobreNosotros"></a>
   <br>
   <div class="container marketing">
     <hr class="featurette-divider">
 
     <div class="row featurette px-5">
       <div class="col-md-7">
-
-        <!-- Le puse el buscador provisional aca, esto debería estar en el nav -->
-
-        <form class="d-flex" method=POST action="{% url 'search' %}">
-          {% csrf_token %}
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" name="confiable">
-            <label class="form-check-label" for="inlineCheckbox1" COLOR="black">
-              <FONT COLOR="white"> Confiable </FONT>
-            </label>
-          </div>
-          <input class="form-control me-2" type="search" placeholder="Buscar...!" aria-label="Search" name="buscar">
-          <button class="btn btn-outline-secondary" type="submit">Buscar</button>
-        </form>
-
-
-
-        {% if lista %}
-        <section>
-          <h3>Actualmente: </h3>
-          <p>Hay {{ lista|length }} preguntas en este momento</p>
-        </section>
-        <div>
-          {% for pregconf in lista %}
-          <section class="pregconfia">
-            <h2> <a href="{% url 'question' pregconf.id %}">{{pregconf.titulo}}</a></h2>
-            <p>{{pregconf.descripcion}}</p>
-            <p>Usuario: <em>{{pregconf.usuario.username}}</em></p>
-          </section>
-          {% endfor %}
-        </div>
-        {% else %}
-        <p><b>Lo sentimos no hay preguntas todavia</b></p>
-        <!-- insertar aqui algo para la url de la pagina home
-            que felman esta haciendo
-            <button ></button>
-        -->
-
-        {% endif %}
+        <h2 class="featurette-heading">¿Que es /name/? <span class="text-muted">Enterate mas.</span></h2>
+        <p class="lead">/name/ es un sistema de tutoriales...</p>
+      </div>
+      <div class="col-md-5">
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+          height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+          preserveAspectRatio="xMidYMid slice" focusable="false">
+          <title>Placeholder</title>
+          <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
+        </svg>
       </div>
     </div>
 
 
-
-
-
-
-    <a name="principio"></a>
-    <br><br><br>
-    <div class="container px-5">
-      <div class="row align-items-center">
-        <div class="col">
-          <div class="card" style="width: 18rem; height: 22rem;">
-            <img src="static/sobreNosotros.jpg" class="card-img-top" alt="..." width="18xp" height="150xp">
-            <div class="card-body">
-              <h5 class="card-title">'¿Que es /name/?</h5>
-              <p class="card-text">Conoce mas sobre la pagina.</p>
-              <a href="#sobreNosotros" class="btn btn-danger">Ir</a>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card" style="width: 18rem; height: 22rem;">
-            <img src="static/reglas.jpg" class="card-img-top" alt="..." width="18xp" height="150xp">
-            <div class="card-body">
-              <h5 class="card-title">Reglas</h5>
-              <p class="card-text">Enterate de las normas que contiene la plataforma.</p>
-              <a href="#reglas" class="btn btn-danger">Ir</a>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card" style="width: 18rem; height: 22rem;">
-            <img src="static/manual.jpg" class="card-img-top" alt="..." width="18xp" height="150xp">
-            <div class="card-body">
-              <h5 class="card-title">Aprende a usarlo</h5>
-              <p class="card-text">Te ensaños a usar nuestra plataforma de una manera facil y sencilla.</p>
-              <a href="#manual" class="btn btn-danger">Ir</a>
-            </div>
-          </div>
-        </div>
+    <a name="reglas"></a><br>
+    <hr class="featurette-divider"><br>
+    <div class="row featurette px-5">
+      <div class="col-md-7">
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+          height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+          preserveAspectRatio="xMidYMid slice" focusable="false">
+          <title>Placeholder</title>
+          <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
+        </svg>
+      </div>
+      <div class="col-md-5">
+        <h2 class="featurette-heading">Normas a seguir. <span class="text-muted">Informate para no ser baneado.</span>
+        </h2>
+        <p class="lead">/name/ presenta unas cuantas normas...</p>
       </div>
     </div>
-
-    <a name="sobreNosotros"></a>
+    <a name="manual"></a><br>
+    <hr class="featurette-divider"><br>
+    <div class="row featurette px-5">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">Manual del sistema. <span class="text-muted">Aprende a como usarlo
+            correctamente.</span></h2>
+        <p class="lead">/name/ es secncillo de usar...</p>
+      </div>
+      <div class="col-md-5">
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+          height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+          preserveAspectRatio="xMidYMid slice" focusable="false">
+          <title>Placeholder</title>
+          <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
+        </svg>
+      </div>
+    </div>
     <br>
-    <div class="container marketing">
-      <hr class="featurette-divider">
-
-      <div class="row featurette px-5">
-        <div class="col-md-7">
-          <h2 class="featurette-heading">¿Que es /name/? <span class="text-muted">Enterate mas.</span></h2>
-          <p class="lead">/name/ es un sistema de tutoriales...</p>
-        </div>
-        <div class="col-md-5">
-          <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
-            height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
-            preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-          </svg>
-        </div>
-      </div>
+  </div>
 
 
-      <a name="reglas"></a><br>
-      <hr class="featurette-divider"><br>
-      <div class="row featurette px-5">
-        <div class="col-md-7">
-          <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
-            height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
-            preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-          </svg>
-        </div>
-        <div class="col-md-5">
-          <h2 class="featurette-heading">Normas a seguir. <span class="text-muted">Informate para no ser baneado.</span>
-          </h2>
-          <p class="lead">/name/ presenta unas cuantas normas...</p>
-        </div>
-      </div>
-      <a name="manual"></a><br>
-      <hr class="featurette-divider"><br>
-      <div class="row featurette px-5">
-        <div class="col-md-7">
-          <h2 class="featurette-heading">Manual del sistema. <span class="text-muted">Aprende a como usarlo
-              correctamente.</span></h2>
-          <p class="lead">/name/ es secncillo de usar...</p>
-        </div>
-        <div class="col-md-5">
-          <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
-            height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
-            preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-          </svg>
-        </div>
-      </div>
-      <br>
-    </div>
+  <!-- Aca que vaya encajado la lista de preguntas reseintes, un cuadrito rectangular -->
+
+  
     <hr class="featurette-divider">
     <footer class="container">
       <p class="float-end"><a href="#">Volver arriba</a></p>
