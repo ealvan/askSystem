@@ -17,6 +17,8 @@
     <br>
     <div class="container">
         <h1>Crear Respuesta</h1>
+
+        {% if user.is_authenticated %}
         <div class="card">
             <div class="card-body">
                 {% if question %}
@@ -45,6 +47,10 @@
                 </div>
             </div>
         </div>
+        {% else %}
+            <br><br>
+            <h1 class="card-title">USTED NO ESTA LOGEADO PARA CREAR UNA RESPUESTA</h2>
+        {% endif %}
     </div>
     <br><br>
     <div class="fixed-bottom bg-danger">

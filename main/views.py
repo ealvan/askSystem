@@ -235,32 +235,32 @@ def trySubNivel(id):
     print("hola")
 
 
-def createReply(request,username, question_id):
+def createReply(request, question_id):
     # print("Question ID: ",question_id)
 
     if request.method == "GET":
         question = get_object_or_404(Pregunta, id=question_id)
-        user = get_object_or_404(Usuario, id = username)
         if question:
-            obj = Respuesta()
-            obj.usuario = user
-            obj.pregunta = question
-            obj.descripcion = ""
-            obj.likes = 0
-            obj.dislikes = 0
-            obj.url_img = ""
-            form = create_reply(instance=obj)
-            context = {
-                "question":question,
-                "usuario":user,
-                "form":form,
-            }
 
-            return render(request,"main/createReply.html",context)
+            if request.user.is_authenticated:
+                obj = Respuesta()
+                obj.usuario = request.user
+                obj.pregunta = question
+                obj.descripcion = ""
+                obj.likes = 0
+                obj.dislikes = 0
+                obj.url_img = ""
+                form = create_reply(instance=obj)
+                context = {
+                    "question":question,
+                    "usuario":request.user,
+                    "form":form,
+                }
+                return render(request,"main/createReply.html",context)
+            return render(request,"main/createReply.html")
         else:
             return render(request,"main/createReply.html")
     else:
-        user = get_object_or_404(Usuario, id = username)
         question = get_object_or_404(Pregunta, id=question_id)
 
         form = create_reply(request.POST)

@@ -124,7 +124,7 @@
 
 document.getElementById("addReply").onclick = function() {
     //es por ID,pero quiero que sea por nombre, asi que, se debe hacer el Login Alex Chaco, haces el login si ves esto
-    location.href = "{% url 'reply' username=1 question_id=question.id %}";
+    location.href = "{% url 'reply' question_id=question.id %}";
 };
 
 //main();
