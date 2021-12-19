@@ -41,12 +41,12 @@ class CreateReply(forms.ModelForm):
             "dislikes"
         ]
         widgets  = {
-            "usuario":widgets.TextInput(attrs={'readonly': 'readonly'}),
-            "pregunta":widgets.TextInput(attrs={'readonly': 'readonly'}),
+            "usuario":forms.HiddenInput(),
+            "pregunta":forms.HiddenInput(),
             "descripcion":widgets.Textarea(),
             "url_img":widgets.TextInput(),
-            "likes":widgets.NumberInput(attrs={'readonly': 'readonly'}),
-            "dislikes":widgets.NumberInput(attrs={'readonly': 'readonly'}),
+            "likes":forms.HiddenInput(),
+            "dislikes":forms.HiddenInput(),
         }
 
 

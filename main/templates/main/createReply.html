@@ -26,24 +26,23 @@
                     <h2 class="card-title">{{question.titulo}}</h2>
                 </div>
                 <br>
-                {% if usuario %}
-                <div class="card">
-                    <p>Usuario : <em>{{usuario.username}}</em></p>
-                    <form method="POST">{% csrf_token %}
-                        {{form.as_p }}
-                        <br>
+                    {% if usuario %}
+                    <div class="card">
+                        <p>Usuario : <em>{{usuario.username}}</em></p>
+                        <form method="POST">{% csrf_token %}
+                            {{form.as_p}}
 
-                        <input class="form-control btn btn-danger" type="submit" value="Guardar">
-                    </form>
-                    <div>
-                        {{form.errors}}
-                    </div>
-                    {% else %}
-                    <p>No existe usuario</p>
-                    {% endif %}
-                    {% else %}
-                    <h2>No llego preguntaOBJ</h2>
-                    {% endif %}
+                            <input class="form-control btn btn-danger" type="submit" value="Guardar">
+                        </form>
+                        <div>
+                            {{form.errors}}
+                        </div>
+                        {% else %}
+                        <p>No existe usuario</p>
+                        {% endif %}
+                        {% else %}
+                        <h2>No llego preguntaOBJ</h2>
+                        {% endif %}
                 </div>
             </div>
         </div>
