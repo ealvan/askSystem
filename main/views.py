@@ -162,15 +162,18 @@ def singleQuestion(request,question_id):
             tryConfiable(post.usuario.id,question_id)
             trySubNivel(post.usuario.id)
             tryConfiablRpta(post)
-
-
             return HttpResponseRedirect(reverse('question', kwargs={"question_id": question_id }))
 
     context = {
         "question": question,
-        "rptas":Respuesta.objects.filter(pregunta=question.id).order_by("-like"),
+        "rptas":orderByLikes(questionID=question.id),
     }
     return render(request, "main/singleQuestion.html",context)
+
+def orderByLikes(questionID):
+    rptas = Respuesta.objects.filter(pregunta=questionID)
+    orderList = sorted(rptas,key=lambda x: x.like.count(), reverse=True)
+    return orderList
 
 def tryConfiablRpta(post):
     if(post.like.count() >= 1): #Necesaria variable global

@@ -31,37 +31,37 @@
             </section>
         </div>
         <br>
-        {% if question.respuesta_set.all %}
+        {% if rptas %}
         <div class="container">
             <div class="accordion" id="accordionExample">
                 {% for rpta in rptas %}
-                <div class="accordion-item">
-                    <h1 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" style="color:#fdfbfb; background-color:#f14343;" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><b>Respuesta: </b></button>
-                    </h1>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            {{rpta.descripcion|safe}}
-                            <br>
-                            <img src="{{rpta.url_img}}" class="img-thumbnail" alt="..." width="400" height="400">
-                            <ul>
-                                <form method="POST" action="/question/{{question.id}}/">
-                                    {% csrf_token %}
-                                    <input name="type" type="hidden" value="like">
-                                    <input name="rptaId" type="hidden" value="{{rpta.id}}">
-                                    <li>&#128077;: <button class="like">{{rpta.like.all.count}}</button></li>
-                                </form>
-                                <form method="POST" action="/question/{{question.id}}/">
-                                    {% csrf_token %}
-                                    <input name="type" type="hidden" value="dislike">
-                                    <input name="rptaId" type="hidden" value="{{rpta.id}}">
-                                    <li>&#128078;: <button class="dislike">{{rpta.dislike.all.count}}</button></li>
-                                </form>
-                            </ul>
+                    <div class="accordion-item">
+                        <h1 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" style="color:#fdfbfb; background-color:#f14343;" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><b>Respuesta: </b></button>
+                        </h1>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                {{rpta.descripcion|safe}}
+                                <br>
+                                <img src="{{rpta.url_img}}" class="img-thumbnail" alt="..." width="400" height="400">
+                                <ul>
+                                    <form method="POST" action="/question/{{question.id}}/">
+                                        {% csrf_token %}
+                                        <input name="type" type="hidden" value="like">
+                                        <input name="rptaId" type="hidden" value="{{rpta.id}}">
+                                        <li>&#128077;: <button class="like">{{rpta.like.all.count}}</button></li>
+                                    </form>
+                                    <form method="POST" action="/question/{{question.id}}/">
+                                        {% csrf_token %}
+                                        <input name="type" type="hidden" value="dislike">
+                                        <input name="rptaId" type="hidden" value="{{rpta.id}}">
+                                        <li>&#128078;: <button class="dislike">{{rpta.dislike.all.count}}</button></li>
+                                    </form>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <br>
+                    <br>
                 {% endfor %}
             </div>
             <br>
