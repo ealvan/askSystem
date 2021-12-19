@@ -152,7 +152,8 @@ def singleQuestion(request,question_id):
 
             if is_dislike:
                 post.dislike.remove(request.user)
-            
+
+            tryConfiable(post.usuario.id,question_id)
 
 
             return HttpResponseRedirect(reverse('question', kwargs={"question_id": question_id }))
@@ -172,6 +173,8 @@ def tryConfiable(id, question_id):
             cont_aux_likes += 1
     if cont_aux_likes > 1:
         q.confiable = True
+    else:
+        q.confiable = False
     q.save()
 
 
