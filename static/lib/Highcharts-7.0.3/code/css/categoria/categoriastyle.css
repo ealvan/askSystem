@@ -1,0 +1,50 @@
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 1px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 10px;
+  resize: vertical;
+}
+
+button[type=submit] {
+  background-color: #dc3545;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+}
+
+#id_descripcion {
+  height: 100px
+
+}
+
+
+button[type=submit]:hover {
+  background-color: #6c757d;
+}
+.formulario {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 15px;
+  width: 500px;
+  position: relative;
+  border: solid 3px #dc3545;
+  max-width: 768px;
+  margin: 100px auto;
+  position: relative;
+}
+.titulo_create {
+  color: #474544;
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: 7px;
+  text-align: center;
+  text-transform: uppercase;
+}
