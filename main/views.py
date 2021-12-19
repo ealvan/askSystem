@@ -16,6 +16,7 @@ from django.contrib.auth.models import User, auth
 from django.contrib.auth import logout as do_logout
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.views import View
+from .globals import *
 
 from .forms import SignUpForm
 # Create your views here.

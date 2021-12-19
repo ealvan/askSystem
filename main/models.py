@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,AbstractUser,UserManager
 from django.db.models.expressions import Value
 from django.urls import reverse
+from .globals import *
 
 class UsuarioManager(UserManager):
     def create_user(self, username, password=None,is_staff=False,is_admin=False,is_active=False):
