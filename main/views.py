@@ -3,10 +3,10 @@ from django.views.generic import (
     ListView,
     DeleteView,
     UpdateView,
-    CreateView
+    CreateView,
 )
 from django.urls import reverse_lazy
-from .models import Categoria, Pregunta,Respuesta, Usuario
+from .models import Categoria, Globales, Pregunta,Respuesta, Usuario
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -17,7 +17,7 @@ from django.contrib.auth.models import User, auth
 from django.contrib.auth import logout as do_logout
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.views import View
-from .models import Globales
+from .globals import *
 
 from .forms import SignUpForm
 # Create your views here. Falta arreglar el mandar solo 3 preguntas
@@ -124,10 +124,12 @@ def singleQuestion(request,question_id):
 
             if is_like: 
                 post.like.remove(request.user)
-            
+
+            print("asd")
             tryConfiable(post.usuario.id,question_id)
             trySubNivel(post.usuario.id)
             tryConfiablRpta(post)
+            print("asd" + str(GetLikeGlobal()))
 
 
             return HttpResponseRedirect(reverse('question', kwargs={"question_id": question_id }))
@@ -172,6 +174,8 @@ def singleQuestion(request,question_id):
 def tryConfiablRpta(post):
     if(post.like.count() >= 1): #Necesaria variable global
         post.confiable = True
+    else:
+        post.confiable = False
     post.save()
 
 
@@ -420,7 +424,11 @@ def PreguntaGraficoView(request, question_id):
         'dislikes': dislikes,
     }
     return render(request, 'main/pregunta_grafico.html', context)
-#CRUD CATEGORIES
+
+def GetLikeGlobal():
+    obLike = get_object_or_404(Globales, id = 1)
+    return obLike.global_py_var
+
 class ListCategories(ListView):
     model = Categoria
     template_name = "crudcat/listcat.html"
@@ -443,5 +451,3 @@ class DeleteCat(DeleteView):
     pk_url_kwarg = "pk"
     template_name = "crudcat/delcat.html"
     success_url = reverse_lazy("listcat")
-
-
