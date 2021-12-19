@@ -1,5 +1,7 @@
 from django.urls import path
 from main import views
+from .models import Globales
+
 app_name="main"
 
 #la vista mainPreguntas, se encargara de tener

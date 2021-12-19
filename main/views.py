@@ -16,6 +16,7 @@ from django.contrib.auth.models import User, auth
 from django.contrib.auth import logout as do_logout
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.views import View
+from .models import Globales
 
 from .forms import SignUpForm
 # Create your views here.
@@ -121,6 +122,9 @@ def singleQuestion(request,question_id):
 
             if is_like: 
                 post.like.remove(request.user)
+            
+            tryConfiable(post.usuario.id,question_id)
+
 
             return HttpResponseRedirect(reverse('question', kwargs={"question_id": question_id }))
 
@@ -148,6 +152,10 @@ def singleQuestion(request,question_id):
 
             if is_dislike:
                 post.dislike.remove(request.user)
+
+            tryConfiable(post.usuario.id,question_id)
+
+
             return HttpResponseRedirect(reverse('question', kwargs={"question_id": question_id }))
 
     context = {
@@ -155,7 +163,22 @@ def singleQuestion(request,question_id):
     }
     return render(request, "main/singleQuestion.html",context)
 
+def tryConfiable(id, question_id):
+    a = Respuesta.objects.filter(usuario=id)
+    q = get_object_or_404(Pregunta, id=question_id)
 
+    cont_aux_likes = 0;
+    for asd in a:
+        if(asd.like.count() >= 1):
+            cont_aux_likes += 1
+    if cont_aux_likes > 1:
+        q.confiable = True
+    else:
+        q.confiable = False
+    q.save()
+
+
+    print("hola")
 
 def createReply(request,username, question_id):
     # print("Question ID: ",question_id)
@@ -233,7 +256,12 @@ def createReply(request,question_id):
     return render(request,"main/createReply.html")
 '''
 
-
+def listQuestion(request):
+    preguntas = Pregunta.objects.all()
+    context = {
+        "lista":preguntas
+    }
+    return render(request,"listQuestions.html",context)    
 
 class PreguntaListView(ListView):
     model = Pregunta

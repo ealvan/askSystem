@@ -20,7 +20,7 @@ from main import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",views.index, name="index"),
-    path("question/",views.index, name="list"),
+    path("question/",views.listQuestion, name="list"),
     path("question/<int:question_id>/",views.singleQuestion, name="question"),
     path("question/<int:question_id>/det/",views.PreguntaDetailView, name="detalles"),
     path('question/<int:pk>/delete/', views.PreguntaDeleteView.as_view(), name = 'pregunta-delete'),
