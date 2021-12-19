@@ -4,13 +4,14 @@ from django.db.models.expressions import Value
 from django.urls import reverse
 
 class UsuarioManager(UserManager):
-    def create_user(self, username, password=None,is_staff=False,is_admin=False,is_active=False):
+    def create_user(self, username, password=None,email=None, is_staff=False,is_admin=False,is_active=False):
         if not username:
             raise ValueError("username es obligatorio")
         if not password:
             raise ValueError("Obligatorio el password")
         user_obj = self.model(username = username)
         user_obj.set_password(password)
+        user_obj.email = email
         user_obj.staff = is_staff
         user_obj.admin = is_admin
         user_obj.active = is_active
@@ -31,7 +32,7 @@ class UsuarioManager(UserManager):
             is_admin=True
         )
         return user
-        
+
 
 #por el momento no agregue imagFile o algo asi
 #por que presiento que el html, puede hacerlo con
@@ -54,7 +55,7 @@ class Usuario(AbstractBaseUser):
         return self.username
     def get_short_name(self):
         return self.username
-    
+
     def has_perm(self,perm,obj=None):
         return True
     def has_module_perms(self,app_label):
@@ -65,12 +66,12 @@ class Usuario(AbstractBaseUser):
     @property
     def is_admin(self):
         return self.admin
-    
+
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100,null=False,blank=False)
     descripcion = models.TextField(null=True,blank=True)
-    
+
     def get_absolute_url(self):
         return reverse("listcat",args=[self.id,])
     def __str__(self):
@@ -85,7 +86,7 @@ class Pregunta(models.Model):
     descripcion = models.TextField(null=False,blank=False)
 #con rudy acordamos que es mejor un bool, para hacer un filtro de confiable
 #nuestro plan es hacer una funcion que cambie este bool si hay una pregunta confiable
-#las respuestas que tiene	
+#las respuestas que tiene
     confiable = models.BooleanField(default=False)
     #sera un JSON, que lo convertiremos a text con json.dumps(jsonobj)
     #y cuando lo recobremos sera con json.dump()
@@ -121,5 +122,3 @@ class Respuesta(models.Model):
 class Globales(models.Model):
     nombre = models.CharField(max_length=100,null=False,blank=True)
     global_py_var = models.IntegerField(default=1,null=True,blank=True)
-
-    

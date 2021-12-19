@@ -136,7 +136,7 @@ def singleQuestion(request,question_id):
             if not is_like:
                 post.like.add(request.user)
 
-            if is_like: 
+            if is_like:
                 post.like.remove(request.user)
 
             print("asd")
@@ -323,7 +323,7 @@ def listQuestion(request):
     context = {
         "lista":preguntas
     }
-    return render(request,"listQuestions.html",context)    
+    return render(request,"listQuestions.html",context)
 
 class PreguntaListView(ListView):
     model = Pregunta
@@ -364,7 +364,7 @@ class PreguntaUpdateView(UpdateView):
         'categoria',
         'titulo',
         'descripcion',
-        'keywords',   
+        'keywords',
     }
 
 '''
@@ -381,7 +381,7 @@ class PreguntaUpdateView(UpdateView):
         'titulo',
         'descripcion',
         'confiable',
-       
+
 
 
 
@@ -412,14 +412,32 @@ def logout(request):
 	do_logout(request)
 	return HttpResponseRedirect(reverse('index'))
 def SignUp(request):
-    form = SignUpForm(request.POST)
-    if form.is_valid():
-        form.save()
-        return redirect('/')
-    else:
-        form = SignUpForm()
-    return render(request, 'register.html', {'form': form})
 
+    if request.method == 'POST':
+        username = request.POST['username']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+        email = request.POST['email']
+
+        if password1 == password2 :
+            if Usuario.objects.filter(username = username).exists():
+                messages.info(request, 'Username existente')
+                return redirect('/createuser')
+            elif Usuario.objects.filter(email = email).exists():
+                messages.info(request, 'Email Registrado')
+                return redirect('/createuser')
+            else:
+                user = Usuario.objects.create_user(email = email,username = username, password = password1)
+                user.save();
+
+                print('user created')
+                return redirect('/')
+        else :
+            messages.info(request, 'No coinciden las contraseñas')
+            return redirect('/createuser')
+        return redirect('/')
+    else :
+        return render(request, 'register.html')
 #grafico pregunta
 
 def PreguntaGraficoView(request, question_id):
@@ -431,7 +449,7 @@ def PreguntaGraficoView(request, question_id):
         #respuestasDes.append(r.descripcion)
         #likes.append(r.likes)
         #dislikes.append(r.dislikes)
-        
+
         #tomamos solo las respuestas confiables
         if r.confiable:
             respuestasDes.append(r.descripcion)
@@ -478,4 +496,3 @@ def listUsers(request,pk):
         "user":user
     }
     return render(request,"usuario/list_usuario.html",context)
-
