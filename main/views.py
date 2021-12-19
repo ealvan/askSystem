@@ -233,7 +233,12 @@ def createReply(request,question_id):
     return render(request,"main/createReply.html")
 '''
 
-
+def listQuestion(request):
+    preguntas = Pregunta.objects.all()
+    context = {
+        "lista":preguntas
+    }
+    return render(request,"listQuestions.html",context)    
 
 class PreguntaListView(ListView):
     model = Pregunta
