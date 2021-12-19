@@ -185,7 +185,7 @@ def tryConfiable(id, question_id):
 
     cont_aux_likes = 0;
     for asd in a: #Likes necesarios
-        if(asd.like.count() >= 1):
+        if(asd.like.count() >= GetLikeGlobal()):
             cont_aux_likes += 1
     if cont_aux_likes > 1:
         q.confiable = True
@@ -198,7 +198,7 @@ def trySubNivel(id):
     q = get_object_or_404(Usuario, id=id)
     cont_aux_likes = 0;
     for asd in a:
-        if(asd.like.count() >= 1):
+        if(asd.like.count() >= GetLikeGlobal()):
             cont_aux_likes += 1
     if cont_aux_likes == 1:
         q.nivel = 5
