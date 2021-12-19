@@ -14,15 +14,24 @@
 </head>
 
 <body>
-    <br><br>
-    {% include 'navgar.html' %}
-    <br>
-    <br>
-    {% for preguntas in lista %}
-    <ul>
-      <li>{{ preguntas.titulo }}</li>
-    </ul>
-    {% endfor %}
+    <br><br><br>
+    <div class="container">
+        <div class="card">
+            <center>
+                <h1>Preguntas</h1>
+            </center>
+            {% include 'navgar.html' %}
+            <br>
+            <br>
+            {% for preguntas in lista %}
+            <ul>
+                <li>
+                    <a href="{% url 'question' preguntas.id %}">{{ preguntas.titulo }}</a>
+                </li>
+            </ul>
+            {% endfor %}
+        </div>
+    </div>
     <div class="fixed-bottom bg-danger">
         <br>
         <footer class="container">
