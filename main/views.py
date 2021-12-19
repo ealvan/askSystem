@@ -191,7 +191,7 @@ def orderByLikes(questionID):
 
 def tryConfiablRpta(post):
 
-    if(post.like.count() >= 1): #Necesaria variable global
+    if(post.like.count() >= GetLikeGlobal()): #Necesaria variable global
         post.confiable = True
     else:
         post.confiable = False
@@ -496,3 +496,5 @@ def listUsers(request,pk):
         "user":user
     }
     return render(request,"usuario/list_usuario.html",context)
+
+#HOla
