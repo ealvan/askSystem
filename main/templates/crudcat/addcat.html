@@ -7,20 +7,28 @@
         <h1>Agregar una nueva Categoria</h1>
         {% if form %}
         <form method="POST">{% csrf_token %}
-            <div>
-                <label for="">{{form.nombre.label}} </label>
-                {{form.nombre}}
-            </div>
-            <div>
-                <label for="">{{form.descripcion.label}} </label>
-                {{form.descripcion}}
-            </div>
+            {% for field in form.visible_fields %}
+                <div class="boxField">
+                    <label for="{{ field.id_for_label}}">{{ field.label }}</label>
+                    {{field}}
+                </div> 
+            {% endfor %}
             <div>
                 <button type="submit" >Agregar</button>
             </div>
+
         </form>
         {% else %}
             <p>No llga el "form"</p>
         {% endif %}
     </body>
 </html>
+
+<!-- <div>
+                <label for="">{{form.nombre.label}} </label>
+                {{form.nombre}}
+            </div>
+            <div>
+                <label for="">{{form.descripcion.label}} </label>
+                {{form.descripcion}}
+            </div> -->
