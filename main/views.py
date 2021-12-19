@@ -408,4 +408,10 @@ class DeleteCat(DeleteView):
     template_name = "crudcat/delcat.html"
     success_url = reverse_lazy("listcat")
 
+def listUsers(request,pk):
+    user = Usuario.objects.get(id=pk)
+    context = {
+        "user":user
+    }
+    return render(request,"usuario/list_usuario.html",context)
 

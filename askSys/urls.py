@@ -38,4 +38,6 @@ urlpatterns = [
     path("cat/edit/<int:pk>/",views.EditCat.as_view(), name="editcat"),
     path("cat/del/<int:pk>/",views.DeleteCat.as_view(),name="delcat"),
     path("listcat/",views.ListCategories.as_view(),name="listcat"),
+    #LIST USUARIO
+    path("listUser/<int:pk>",views.listUsers, name="listusers"),
 ]
