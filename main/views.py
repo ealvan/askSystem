@@ -18,13 +18,27 @@ from django.contrib.auth import logout as do_logout
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.views import View
 from .globals import *
+from random import randint
 
 from .forms import SignUpForm
 # Create your views here. Falta arreglar el mandar solo 3 preguntas
-def index(request):
+
+def get_random_item():
+    count = Pregunta.objects.count()
+    rand = randint(0,count-3)
+    a = Pregunta.objects.filter(id__range=[rand, rand+2])
+
+def index(request): #Se envian solo 3 objetos aleatorios
     preguntas = Pregunta.objects.all()
+    count = Pregunta.objects.count()
+    print(count)
+    rand = randint(1,count-2)
+    q = get_object_or_404(Pregunta, id=rand)
+    a = Pregunta.objects.filter(id__range=[rand+1, rand+3])
+
     context = {
-        "lista":preguntas
+        "lista":a,
+        "q":q,
     }
     return render(request,"base.html",context)
 
