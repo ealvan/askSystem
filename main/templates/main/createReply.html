@@ -28,8 +28,14 @@
                 <div class="card">
                     <p>Usuario : <em>{{usuario.username}}</em></p>
                     <form method="POST">{% csrf_token %}
-                        {{form.as_p }}
-                        <br>
+                        {% for field in form.visible_fields %}
+                            <div class="boxField">
+                                <label for="{{ field.id_for_label}}">{{ field.label }}</label>
+                                <br>
+                                {{field}}
+                                
+                            </div> 
+                        {% endfor %}
 
                         <input class="form-control btn btn-danger" type="submit" value="Guardar">
                     </form>
