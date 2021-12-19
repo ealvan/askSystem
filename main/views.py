@@ -16,6 +16,7 @@ from django.contrib.auth.models import User, auth
 from django.contrib.auth import logout as do_logout
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.views import View
+from .globals import *
 
 from .forms import SignUpForm
 # Create your views here.
@@ -252,7 +253,12 @@ def createReply(request,question_id):
     return render(request,"main/createReply.html")
 '''
 
-
+def listQuestion(request):
+    preguntas = Pregunta.objects.all()
+    context = {
+        "lista":preguntas
+    }
+    return render(request,"listQuestions.html",context)    
 
 class PreguntaListView(ListView):
     model = Pregunta

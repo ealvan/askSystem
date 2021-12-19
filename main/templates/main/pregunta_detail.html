@@ -5,9 +5,25 @@
 {% block body %}
 <h1> Detalle de Preguntas </h1>
 <h2> {{ object.titulo }} </h2>
-<p> <b>Usuario:</b> {{ object.usuario }} </p>
-<p> <b>Descripcion:</b> {{ object.descripcion }} </p>
-<p> <b>Categoria:</b> {{ object.categoria.nombre }} </p>
-<p> <b>Confiable:</b> {{ object.confiable }} </p>
-<p> <b>Palabras clave:</b> {{ object.keywords }} </p>
+<div class="container marketing">
+    <hr class="featurette-divider">
+    <div class="row featurette px-5">
+        <div class="col-md-7">
+            <ul class="list-group">
+                <li class="list-group-item"><p> <b>Usuario:</b> {{ object.usuario }} </p></li>
+                <li class="list-group-item"><p> <b>Descripcion:</b> {{ object.descripcion }} </p></li>
+                <li class="list-group-item"><p> <b>Categoria:</b> {{ object.categoria.nombre }} </p></li>
+                <li class="list-group-item"><p> <b>Confiable:</b> {{ object.confiable }} </p></li>
+                <li class="list-group-item"><p> <b>Palabras clave:</b> {{ object.keywords }} </p></li>
+            </ul>
+        </div>
+        <div class="col-md-5">
+            <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="320"
+          height="320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 350x350"
+          preserveAspectRatio="xMidYMid slice" focusable="false">
+          <title>Placeholder</title>
+          <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em"></text>
+        </svg>
+      </div>
+    </div>
 {% endblock %}

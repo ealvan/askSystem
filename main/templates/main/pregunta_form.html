@@ -6,16 +6,17 @@
 {% block body %}
 
 {% if user.is_authenticated %}
-<h1>Crear Pregunta</h1>
+<div class="formulario">
+<h2 class="titulo_create">&bull;Crear Pregunta&bull;</h2>
 
-<form method="POST" class="create">{% csrf_token %}
+<form method="POST" class="form">{% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Crear Pregunta" class="button">
 </form>
+</div>
 
 {% else %}
-<a >USTED NO PUEDE CREAR UNA PREGUTNA</a>
+<a >USTED NO PUEDE CREAR UNA PREGUNTA</a>
 {% endif %}
-
 
 {% endblock %}

@@ -14,6 +14,10 @@
         Pero sino hay resultados, puedes poner un mensaje en esta pagina que 
         diga que no se encontraron resultados(mas facil para ti)
     -->
+    {% include '../navgar.html' %}
+        <br>
+        <br>
+        <br>
         <h1>Lista de Preguntas</h1>
         <p> Preguntas confiables dado el atributo confiable de la pregunta </p>
         {% if lista %}
@@ -45,6 +49,14 @@
             <p>Usuario NO Autenticado</p>            
         {% endif %} -->
         <button id="createQuestion" target="_blank">Crear Pregunta!</button>
+        <br><br>
+    <div class="fixed-bottom bg-danger">
+      <br>
+      <footer class="container">
+        <p class="float-end"><a style="color:#fcfcfc;" href="#">Volver arriba</a></p>
+        <p style="color:#fcfcfc;">&copy; 2021 Company, Inc.</p>
+      </footer>
+    </div>
     </body> 
     <script>
         function main(){
