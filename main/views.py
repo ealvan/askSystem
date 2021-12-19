@@ -190,6 +190,7 @@ def orderByLikes(questionID):
     return orderList
 
 def tryConfiablRpta(post):
+
     if(post.like.count() >= 1): #Necesaria variable global
         post.confiable = True
     else:
@@ -198,13 +199,15 @@ def tryConfiablRpta(post):
 
 
 def tryConfiable(id, question_id):
-    a = Respuesta.objects.filter(usuario=id)
+    a = Respuesta.objects.filter(usuario=id,pregunta=question_id)
     q = get_object_or_404(Pregunta, id=question_id)
 
     cont_aux_likes = 0;
     for asd in a: #Likes necesarios
         if(asd.like.count() >= GetLikeGlobal()):
+            print("bruh! " + str(asd.like.count()))
             cont_aux_likes += 1
+    print("LOS LIKES VISTOS  "  + str(cont_aux_likes))
     if cont_aux_likes > 1:
         q.confiable = True
     else:
