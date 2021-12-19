@@ -110,12 +110,16 @@ class Respuesta(models.Model):
     #se crea con 0 y 0 al inicio
     like = models.ManyToManyField(Usuario, blank=True,related_name="likes")
     dislike = models.ManyToManyField(Usuario, blank=True,related_name="dislikes")
+    confiable = models.BooleanField(default=False)
+
+
+    #Por eliminar
 
     likes = models.IntegerField(default= 0)
     dislikes = models.IntegerField(default=0)
 
 class Globales(models.Model):
+    nombre = models.CharField(max_length=100,null=False,blank=True)
     global_py_var = models.IntegerField(default=1,null=True,blank=True)
 
-    def __str__(self):
-        return self.nombre
+    

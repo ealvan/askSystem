@@ -3,10 +3,10 @@ from django.views.generic import (
     ListView,
     DeleteView,
     UpdateView,
-    CreateView
+    CreateView,
 )
 from django.urls import reverse_lazy
-from .models import Categoria, Pregunta,Respuesta, Usuario
+from .models import Categoria, Globales, Pregunta,Respuesta, Usuario
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -17,10 +17,10 @@ from django.contrib.auth.models import User, auth
 from django.contrib.auth import logout as do_logout
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.views import View
-from .models import Globales
+from .globals import *
 
 from .forms import SignUpForm
-# Create your views here.
+# Create your views here. Falta arreglar el mandar solo 3 preguntas
 def index(request):
     preguntas = Pregunta.objects.all()
     context = {
@@ -28,6 +28,7 @@ def index(request):
     }
     return render(request,"base.html",context)
 
+#Es posible prrarlo, no se usa
 def preguntas(request):
     preguntas = Pregunta.objects.all()
     context = {
@@ -123,8 +124,12 @@ def singleQuestion(request,question_id):
 
             if is_like: 
                 post.like.remove(request.user)
-            
+
+            print("asd")
             tryConfiable(post.usuario.id,question_id)
+            trySubNivel(post.usuario.id)
+            tryConfiablRpta(post)
+            print("asd" + str(GetLikeGlobal()))
 
 
             return HttpResponseRedirect(reverse('question', kwargs={"question_id": question_id }))
@@ -155,6 +160,8 @@ def singleQuestion(request,question_id):
                 post.dislike.remove(request.user)
 
             tryConfiable(post.usuario.id,question_id)
+            trySubNivel(post.usuario.id)
+            tryConfiablRpta(post)
 
 
             return HttpResponseRedirect(reverse('question', kwargs={"question_id": question_id }))
@@ -164,13 +171,21 @@ def singleQuestion(request,question_id):
     }
     return render(request, "main/singleQuestion.html",context)
 
+def tryConfiablRpta(post):
+    if(post.like.count() >= 1): #Necesaria variable global
+        post.confiable = True
+    else:
+        post.confiable = False
+    post.save()
+
+
 def tryConfiable(id, question_id):
     a = Respuesta.objects.filter(usuario=id)
     q = get_object_or_404(Pregunta, id=question_id)
 
     cont_aux_likes = 0;
-    for asd in a:
-        if(asd.like.count() >= 1):
+    for asd in a: #Likes necesarios
+        if(asd.like.count() >= GetLikeGlobal()):
             cont_aux_likes += 1
     if cont_aux_likes > 1:
         q.confiable = True
@@ -178,8 +193,33 @@ def tryConfiable(id, question_id):
         q.confiable = False
     q.save()
 
+def trySubNivel(id):
+    a = Respuesta.objects.filter(usuario=id)
+    q = get_object_or_404(Usuario, id=id)
+    cont_aux_likes = 0;
+    for asd in a:
+        if(asd.like.count() >= GetLikeGlobal()):
+            cont_aux_likes += 1
+    if cont_aux_likes == 1:
+        q.nivel = 5
+    else:
+        if cont_aux_likes == 2:
+            q.nivel = 4
+        else:
+            if cont_aux_likes == 3:
+                q.nivel = 3
+            else:
+                if cont_aux_likes == 4:
+                    q.nivel = 2
+                else:
+                    if cont_aux_likes >= 5:
+                        q.nivel = 1
+    q.save()
+
+
 
     print("hola")
+
 
 def createReply(request,username, question_id):
     # print("Question ID: ",question_id)
@@ -384,7 +424,11 @@ def PreguntaGraficoView(request, question_id):
         'dislikes': dislikes,
     }
     return render(request, 'main/pregunta_grafico.html', context)
-#CRUD CATEGORIES
+
+def GetLikeGlobal():
+    obLike = get_object_or_404(Globales, id = 1)
+    return obLike.global_py_var
+
 class ListCategories(ListView):
     model = Categoria
     template_name = "crudcat/listcat.html"
