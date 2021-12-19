@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .globals import *
+from .models import Globales
 
 # Create your tests here.
 

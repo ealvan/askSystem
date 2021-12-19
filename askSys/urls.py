@@ -33,4 +33,9 @@ urlpatterns = [
     path('createuser/', views.SignUp, name="SignUp"),
     #grafico
     path("question/<int:question_id>/grafico/",views.PreguntaGraficoView, name="pregunta-grafico"),
+    #CRUD CATEGORIES    
+    path("cat/add/",views.AddCat.as_view(), name="addcat"),
+    path("cat/edit/<int:pk>/",views.EditCat.as_view(), name="editcat"),
+    path("cat/del/<int:pk>/",views.DeleteCat.as_view(),name="delcat"),
+    path("listcat/",views.ListCategories.as_view(),name="listcat"),
 ]

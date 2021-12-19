@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,AbstractUser,UserManager
 from django.db.models.expressions import Value
 from django.urls import reverse
-from .globals import *
 
 class UsuarioManager(UserManager):
     def create_user(self, username, password=None,is_staff=False,is_admin=False,is_active=False):
@@ -71,13 +70,16 @@ class Usuario(AbstractBaseUser):
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100,null=False,blank=False)
     descripcion = models.TextField(null=True,blank=True)
-
+    
+    def get_absolute_url(self):
+        return reverse("listcat",args=[self.id,])
     def __str__(self):
         return self.nombre
 
+
 class Pregunta(models.Model):
     usuario = models.ForeignKey(Usuario,on_delete=models.PROTECT)
-    categoria = models.ForeignKey(Categoria,on_delete=models.PROTECT)
+    categoria = models.ForeignKey(Categoria,null=True,on_delete=models.SET_NULL,blank=True)
 
     titulo = models.CharField(max_length=200,null=False,blank=False)
     descripcion = models.TextField(null=False,blank=False)
@@ -115,3 +117,9 @@ class Respuesta(models.Model):
 
     likes = models.IntegerField(default= 0)
     dislikes = models.IntegerField(default=0)
+
+class Globales(models.Model):
+    global_py_var = models.IntegerField(default=1,null=True,blank=True)
+
+    def __str__(self):
+        return self.nombre

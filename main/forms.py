@@ -5,7 +5,7 @@ from .models import Respuesta,Pregunta
 
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import Usuario
-from .globals import *
+from .models import Globales
 
 class RespuestaForm(forms.Form):
     idRpta = forms.HiddenInput()
