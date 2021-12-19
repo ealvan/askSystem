@@ -26,7 +26,7 @@
             {% for preguntas in lista %}
             <ul>
                 <li>
-                    <a href="{% url 'question' preguntas.id %}">{{ preguntas.titulo }}</a>
+                    <h3><a href="{% url 'question' preguntas.id %}" style="color:#000000;">{{ preguntas.titulo }}</a></h3>
                 </li>
             </ul>
             {% endfor %}
