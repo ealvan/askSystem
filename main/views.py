@@ -168,6 +168,7 @@ def singleQuestion(request,question_id):
 
     context = {
         "question": question,
+        "rptas":Respuesta.objects.filter(pregunta=question.id).order_by("-like"),
     }
     return render(request, "main/singleQuestion.html",context)
 

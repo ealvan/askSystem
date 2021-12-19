@@ -34,7 +34,7 @@
         {% if question.respuesta_set.all %}
         <div class="container">
             <div class="accordion" id="accordionExample">
-                {% for rpta in question.respuesta_set.all %}
+                {% for rpta in rptas %}
                 <div class="accordion-item">
                     <h1 class="accordion-header" id="headingOne">
                         <button class="accordion-button" type="button" style="color:#fdfbfb; background-color:#f14343;" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><b>Respuesta: </b></button>
