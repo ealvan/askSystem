@@ -453,8 +453,8 @@ def PreguntaGraficoView(request, question_id):
         #tomamos solo las respuestas confiables
         if r.confiable:
             respuestasDes.append(r.descripcion)
-            likes.append(r.likes)
-            dislikes.append(r.dislikes)
+            likes.append(r.like.count())
+            dislikes.append(r.dislike.count())
     context = {
         'titulo': obj.titulo,
         'respuestasDes': respuestasDes,
