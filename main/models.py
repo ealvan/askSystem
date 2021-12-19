@@ -79,7 +79,7 @@ class Categoria(models.Model):
 
 class Pregunta(models.Model):
     usuario = models.ForeignKey(Usuario,on_delete=models.PROTECT)
-    categoria = models.ForeignKey(Categoria,on_delete=models.SET_NULL,null=True,blank=True)
+    categoria = models.ForeignKey(Categoria,null=True,on_delete=models.SET_NULL,blank=True)
 
     titulo = models.CharField(max_length=200,null=False,blank=False)
     descripcion = models.TextField(null=False,blank=False)
