@@ -1,6 +1,6 @@
 from django.urls import path
 from main import views
-from .globals import *
+from .models import Globales
 
 app_name="main"
 

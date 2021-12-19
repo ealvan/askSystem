@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,AbstractUser,UserManager
 from django.db.models.expressions import Value
 from django.urls import reverse
-from .globals import *
 
 class UsuarioManager(UserManager):
     def create_user(self, username, password=None,is_staff=False,is_admin=False,is_active=False):
@@ -111,3 +110,9 @@ class Respuesta(models.Model):
 
     likes = models.IntegerField(default= 0)
     dislikes = models.IntegerField(default=0)
+
+class Globales(models.Model):
+    global_py_var = models.IntegerField(default=1,null=True,blank=True)
+
+    def __str__(self):
+        return self.nombre
