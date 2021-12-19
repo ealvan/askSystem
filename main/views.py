@@ -3,6 +3,7 @@ from django.views.generic import (
     ListView,
     DeleteView,
     UpdateView,
+    CreateView
 )
 from django.urls import reverse_lazy
 from .models import Categoria, Pregunta,Respuesta, Usuario
@@ -383,3 +384,28 @@ def PreguntaGraficoView(request, question_id):
         'dislikes': dislikes,
     }
     return render(request, 'main/pregunta_grafico.html', context)
+#CRUD CATEGORIES
+class ListCategories(ListView):
+    model = Categoria
+    template_name = "crudcat/listcat.html"
+
+class AddCat(CreateView):
+    model = Categoria
+    fields = "__all__"
+    template_name = "crudcat/addcat.html"
+    success_url = reverse_lazy("listcat")
+
+class EditCat(UpdateView):
+    model = Categoria
+    template_name = "crudcat/edit.html"
+    fields = "__all__"
+    pk_url_kwarg = "pk"
+    success_url = reverse_lazy("listcat")
+
+class DeleteCat(DeleteView):
+    model = Categoria
+    pk_url_kwarg = "pk"
+    template_name = "crudcat/delcat.html"
+    success_url = reverse_lazy("listcat")
+
+
