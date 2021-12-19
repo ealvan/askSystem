@@ -35,6 +35,13 @@
         <div class="container">
             <div class="accordion" id="accordionExample">
                 {% for rpta in rptas %}
+
+                    {% if rpta.confiable == True %}
+                        <h1>Repta confiable</h1>
+                    {% else %}
+                        <h1>Repta no confiable</h1>
+                    {% endif %}
+
                     <div class="accordion-item">
                         <h1 class="accordion-header" id="headingOne">
                             <button class="accordion-button" type="button" style="color:#fdfbfb; background-color:#f14343;" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><b>Respuesta: </b></button>

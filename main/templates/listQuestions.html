@@ -24,6 +24,16 @@
             <br>
             <br>
             {% for preguntas in lista %}
+
+            {% if preguntas.confiable == True %}
+                    <h1>Repta confiable</h1>
+            {% else %}
+                    <h1>Repta no confiable</h1>
+            {% endif %}
+
+
+
+
             <ul>
                 <li>
                     <h3><a href="{% url 'question' preguntas.id %}" style="color:#000000;">{{ preguntas.titulo }}</a></h3>
