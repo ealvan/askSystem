@@ -19,7 +19,7 @@ from django.views import View
 from .globals import *
 
 from .forms import SignUpForm
-# Create your views here.
+# Create your views here. Falta arreglar el mandar solo 3 preguntas
 def index(request):
     preguntas = Pregunta.objects.all()
     context = {
@@ -27,6 +27,7 @@ def index(request):
     }
     return render(request,"base.html",context)
 
+#Es posible prrarlo, no se usa
 def preguntas(request):
     preguntas = Pregunta.objects.all()
     context = {
@@ -124,6 +125,8 @@ def singleQuestion(request,question_id):
                 post.like.remove(request.user)
             
             tryConfiable(post.usuario.id,question_id)
+            trySubNivel(post.usuario.id)
+            tryConfiablRpta(post)
 
 
             return HttpResponseRedirect(reverse('question', kwargs={"question_id": question_id }))
@@ -154,6 +157,8 @@ def singleQuestion(request,question_id):
                 post.dislike.remove(request.user)
 
             tryConfiable(post.usuario.id,question_id)
+            trySubNivel(post.usuario.id)
+            tryConfiablRpta(post)
 
 
             return HttpResponseRedirect(reverse('question', kwargs={"question_id": question_id }))
@@ -163,12 +168,18 @@ def singleQuestion(request,question_id):
     }
     return render(request, "main/singleQuestion.html",context)
 
+def tryConfiablRpta(post):
+    if(post.like.count() >= 1): #Necesaria variable global
+        post.confiable = True
+    post.save()
+
+
 def tryConfiable(id, question_id):
     a = Respuesta.objects.filter(usuario=id)
     q = get_object_or_404(Pregunta, id=question_id)
 
     cont_aux_likes = 0;
-    for asd in a:
+    for asd in a: #Likes necesarios
         if(asd.like.count() >= 1):
             cont_aux_likes += 1
     if cont_aux_likes > 1:
@@ -177,8 +188,33 @@ def tryConfiable(id, question_id):
         q.confiable = False
     q.save()
 
+def trySubNivel(id):
+    a = Respuesta.objects.filter(usuario=id)
+    q = get_object_or_404(Usuario, id=id)
+    cont_aux_likes = 0;
+    for asd in a:
+        if(asd.like.count() >= 1):
+            cont_aux_likes += 1
+    if cont_aux_likes == 1:
+        q.nivel = 5
+    else:
+        if cont_aux_likes == 2:
+            q.nivel = 4
+        else:
+            if cont_aux_likes == 3:
+                q.nivel = 3
+            else:
+                if cont_aux_likes == 4:
+                    q.nivel = 2
+                else:
+                    if cont_aux_likes >= 5:
+                        q.nivel = 1
+    q.save()
+
+
 
     print("hola")
+
 
 def createReply(request,username, question_id):
     # print("Question ID: ",question_id)

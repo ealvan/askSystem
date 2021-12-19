@@ -108,6 +108,10 @@ class Respuesta(models.Model):
     #se crea con 0 y 0 al inicio
     like = models.ManyToManyField(Usuario, blank=True,related_name="likes")
     dislike = models.ManyToManyField(Usuario, blank=True,related_name="dislikes")
+    confiable = models.BooleanField(default=False)
+
+
+    #Por eliminar
 
     likes = models.IntegerField(default= 0)
     dislikes = models.IntegerField(default=0)
