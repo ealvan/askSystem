@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Titulode </title>
+    </head>
+    <body>
+        <h1>Agregar una nueva Categoria</h1>
+        {% if form %}
+        <form method="POST">{% csrf_token %}
+            <div>
+                <label for="">{{form.nombre.label}} </label>
+                {{form.nombre}}
+            </div>
+            <div>
+                <label for="">{{form.descripcion.label}} </label>
+                {{form.descripcion}}
+            </div>
+            <div>
+                <button type="submit" >Editar</button>
+            </div>
+        </form>
+        {% else %}
+            <p>No llga el "form"</p>
+        {% endif %}
+    </body>
+</html>

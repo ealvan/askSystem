@@ -70,7 +70,8 @@ class Usuario(AbstractBaseUser):
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100,null=False,blank=False)
     descripcion = models.TextField(null=True,blank=True)
-
+    def get_absolute_url(self):
+        return reverse("listcat",args=[self.id,])
     def __str__(self):
         return self.nombre
 

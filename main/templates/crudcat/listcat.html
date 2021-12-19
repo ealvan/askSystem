@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+    HEAD CATOGORIES
+</title>
+</head>
+<body>
+    <h1>Lista de Categorias</h1>
+    {% for cat in object_list %}
+        <section >
+            <div>{{cat.nombre}}</div>
+            <br>
+            <div>{{cat.descripcion}}</div>
+            <br>
+            <div>
+                <a href="{% url 'editcat' cat.pk %}" >Editar Categoria</a>
+                <a href="{% url 'delcat' cat.pk %}" >Eliminar Categoria</a>
+
+            </div>
+        </section>    
+    {% endfor %}
+    <div>
+        <a href="{% url 'addcat' %}" >Agregar nueva categoria</a>
+    </div>
+
+
+</body>
+
+
+</html>

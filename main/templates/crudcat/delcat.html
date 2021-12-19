@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Delete Categoria</h1>
+        <div>
+            <form method="POST">{% csrf_token %}
+                <p>Esta seguro de borrar esta categoria(Puede que algunas preguntas no tenga una categoria) ?</p>
+                <input type="submit" value="Confirmar">
+            </form>
+        </div>
+    </body>
+</html>
