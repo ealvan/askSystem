@@ -112,7 +112,7 @@ class Respuesta(models.Model):
     dislikes = models.IntegerField(default=0)
 
 class Globales(models.Model):
-    global_py_var = models.BooleanField(default=False)
+    global_py_var = models.IntegerField(default=1,null=True,blank=True)
 
     def __str__(self):
         return self.nombre
