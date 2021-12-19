@@ -121,6 +121,9 @@ def singleQuestion(request,question_id):
 
             if is_like: 
                 post.like.remove(request.user)
+            
+            tryConfiable(post.usuario.id,question_id)
+
 
             return HttpResponseRedirect(reverse('question', kwargs={"question_id": question_id }))
 
@@ -148,6 +151,9 @@ def singleQuestion(request,question_id):
 
             if is_dislike:
                 post.dislike.remove(request.user)
+            
+
+
             return HttpResponseRedirect(reverse('question', kwargs={"question_id": question_id }))
 
     context = {
@@ -155,7 +161,20 @@ def singleQuestion(request,question_id):
     }
     return render(request, "main/singleQuestion.html",context)
 
+def tryConfiable(id, question_id):
+    a = Respuesta.objects.filter(usuario=id)
+    q = get_object_or_404(Pregunta, id=question_id)
 
+    cont_aux_likes = 0;
+    for asd in a:
+        if(asd.like.count() >= 1):
+            cont_aux_likes += 1
+    if cont_aux_likes > 1:
+        q.confiable = True
+    q.save()
+
+
+    print("hola")
 
 def createReply(request,username, question_id):
     # print("Question ID: ",question_id)
