@@ -75,14 +75,11 @@ class Categoria(models.Model):
         return reverse("listcat",args=[self.id,])
     def __str__(self):
         return self.nombre
-def get_default():
-    # 3 es para el ID de GENERAL ese no debe borrarse
-    obj = Categoria.objects.get(id=3)
-    return obj.pk
+
 
 class Pregunta(models.Model):
     usuario = models.ForeignKey(Usuario,on_delete=models.PROTECT)
-    categoria = models.ForeignKey(Categoria,on_delete=models.SET_DEFAULT,null=True,blank=True,default=get_default)
+    categoria = models.ForeignKey(Categoria,on_delete=models.SET_NULL,null=True,blank=True)
 
     titulo = models.CharField(max_length=200,null=False,blank=False)
     descripcion = models.TextField(null=False,blank=False)
