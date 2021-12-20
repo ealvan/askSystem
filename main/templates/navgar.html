@@ -2,7 +2,7 @@
 {% block content %}
 <header>
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-danger">
-    <div class="container px-1">
+    <div class="container-fluid">
       <a class="navbar-brand" href="http://127.0.0.1:8000/">Sistema de Turoriales</a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -15,19 +15,19 @@
           </li>
           {% if user.is_authenticated == False %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'SignUp' %}">Registrarse</a>
+            <a class="nav-link active" href="{% url 'SignUp' %}">Registrarse</a>
           </li>
           {% endif %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'ask' %}">Preguntar</a>
+            <a class="nav-link active" href="{% url 'ask' %}">Preguntar</a>
           </li>
           {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesion->
+            <a class="nav-link active" href="{% url 'logout' %}">Cerrar Sesion
             </a>
 
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'listusers' user.id %}">
+            <a class="nav-link active" href="{% url 'listusers' user.id %}">
               {% if user.nivel == 5 %}
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-dice-1-fill" viewBox="0 0 16 16">
@@ -74,7 +74,7 @@
           </li>
           {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Logearse</a>
+            <a class="nav-link active" href="{% url 'login' %}">Logearse</a>
           </li>
           {% endif %}
         </ul>

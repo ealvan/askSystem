@@ -19,7 +19,7 @@
             <section class="pregconfia">
                 <h2> {{question.titulo}} </h2>
                 <p>{{question.descripcion}}</p>
-                <a href=det style="text-decoration: none;">
+                <a href="/question/{{question.id}}/det" style="text-decoration: none;">
                     <button class="btn btn-outline-danger" type="button">
                         <b>Ver detalles</b>
                     </button>
@@ -27,7 +27,7 @@
 
                 <!-- se mostrara el boton de 'ver grafica' solo cuando la pregunta es confiable -->
                 {% if question.confiable %}
-                <a href=grafico style="text-decoration: none;">
+                <a href="/question/{{question.id}}/grafico" style="text-decoration: none;">
                     <button class="btn btn-outline-danger" type="button">
                         <b>Ver graficas</b>
                     </button>
