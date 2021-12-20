@@ -587,7 +587,7 @@ class DeleteCat(DeleteView):
 def listUsers(request,pk):
     user = Usuario.objects.get(id=pk)
     context = {
-        "user":user
+        "usersended":user
     }
     return render(request,"usuario/list_usuario.html",context)
 
