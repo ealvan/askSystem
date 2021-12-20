@@ -29,13 +29,14 @@
                 {% if question.confiable %}
                 <a href=grafico style="text-decoration: none;">
                     <button class="btn btn-outline-danger" type="button">
-                        <b>Ver grafica</b>
+                        <b>Ver graficas</b>
                     </button>
                 </a>
                 {% endif %}
-                <a href=conf style="text-decoration: none;">
+                
+                <a href="{% url 'question' question.id %}" style="text-decoration: none;">
                     <button class="btn btn-outline-danger" type="button">
-                        <b>Rptas confiables</b>
+                        <b>Todas rptas</b>
                     </button>
                 </a>
             </section>
@@ -83,44 +84,10 @@
                 </div>
                 <br>
                 {% else %}
-                <div class="accordion-item">
-                    <h1 class="accordion-header" id="headingOne">
-                        <a href="{% url 'listusers' rpta.usuario.id %}" style="text-decoration: none;">
-                            <button class="accordion-button" type="button"
-                                style="color:#fdfbfb; background-color:#f14343;" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                <b>Respuesta de {{ rpta.usuario.username }}</b>
-                            </button>
-                        </a>
-
-                    </h1>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                        data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            {{rpta.descripcion|safe}}
-                            <br>
-                            <img src="{{rpta.url_img}}" class="img-thumbnail" alt="..." width="400" height="400">
-                            <ul>
-                                <form method="POST" action="/question/{{question.id}}/">
-                                    {% csrf_token %}
-                                    <input name="type" type="hidden" value="like">
-                                    <input name="rptaId" type="hidden" value="{{rpta.id}}">
-                                    <li>&#128077;: <button class="like">{{rpta.like.all.count}}</button></li>
-                                </form>
-                                <form method="POST" action="/question/{{question.id}}/">
-                                    {% csrf_token %}
-                                    <input name="type" type="hidden" value="dislike">
-                                    <input name="rptaId" type="hidden" value="{{rpta.id}}">
-                                    <li>&#128078;: <button class="dislike">{{rpta.dislike.all.count}}</button></li>
-                                </form>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <br>
+                
                 {% endif %}
 
-                
+                <br>
                 {% endfor %}
             </div>
             <br>
@@ -129,14 +96,12 @@
         <p><b>No hay respuesta para esta pregunt aun.</b></p>
         <!-- <button id="addReply"> Crear Respuesta!</button> -->
         {% endif %}
-        <footer class="container">
-        <button class="btn btn-outline-danger" id="addReply"><b>Crear Respuesta!</b></button>
+        <button class="btn btn-outline-danger" id="addReply"> Crear Respuesta!</button>
         <a href="/question" style="text-decoration: none;">
             <button class="btn btn-outline-danger" type="button">
                 <b>Volver</b>
             </button>
         </a>
-        </footer>
         {% else %}
         <p> <b> No existe esta pregunta, puedes intentar buscando otra</b> </p>
         {% endif %}
@@ -162,45 +127,12 @@
         crossorigin="anonymous"></script>
 </body>
 <script>
-    /*
-            function main(){
-                forms_items_like = document.getElementsByClassName("like");
-                forms_items_dislike = document.getElementsByClassName("dislike");
-                for(let item of forms_items_like){
-                    item.addEventListener("click",sendData);
-                }
-                for(let item of forms_items_dislike){
-                    item.addEventListener("click",sendData);
-                }
-    
-            }
-            main();
-            // console.log("Helloqorld");
-            const URL_WEB = "http://127.0.0.1:8000/"
-            function sendData(){
-                //console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA","{{rpta.id}}");
-                // console.log(this.textContent);
-                let rawId = this.id;
-                // console.log("ID: ",this.id);
-                let sendStrData = URL_WEB;
-                if(rawId.slice(0,1) == "l" ){
-                    sendStrData += "reply/{{question.id}}/?type=like";
-                }else if(rawId.slice(0,1) == "d" || rawId.slice(0,1)=="u"){
-                    sendStrData += "reply/{{question.id}}/?type=dislike";
-                }
-                let idrpta = rawId.slice(1,rawId.length)
-                let val = idrpta;
-                sendStrData+="&rptaId="+val;
-                window.location.href = sendStrData;
-            }*/
+   
 
     document.getElementById("addReply").onclick = function () {
         //es por ID,pero quiero que sea por nombre, asi que, se debe hacer el Login Alex Chaco, haces el login si ves esto
         location.href = "{% url 'reply' question_id=question.id %}";
     };
-
-//main();
-//http://127.0.0.1:8000/askSystem/1/?type=dislike&cantidad=1&rptaId=1
 </script>
 
 </html>

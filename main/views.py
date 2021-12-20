@@ -184,6 +184,100 @@ def singleQuestion(request,question_id):
     }
     return render(request, "main/singleQuestion.html",context)
 
+def rptasConfiables(request,question_id):
+    data = request.GET
+    if data:
+        print(data)
+        try:
+            rptaId = int(data.get("rptaId"))
+            typo = data.get("type")
+            rptaObj = Respuesta.objects.get(id=rptaId)
+        except:
+            raise ValueError("Error al tratar con el **request.GET**")
+
+        if typo == "like":
+            rptaObj.likes += 1
+        elif typo == "dislike":
+            rptaObj.dislikes +=1
+        else:
+            print("ERROR de typo :", typo)
+        rptaObj.save()
+    question = Pregunta.objects.get(id=question_id)
+
+    if request.method == 'POST':
+        tipo = request.POST.get("type")
+
+        if tipo == "like":
+            post = Respuesta.objects.get(pk= request.POST.get("rptaId"))
+            print(post)
+            is_dislike = False
+
+            for dislike in post.dislike.all():
+                if dislike == request.user:
+                    is_dislike = True
+                    break
+
+            if is_dislike:
+                post.dislike.remove(request.user)
+
+            is_like = False
+
+            for like in post.like.all():
+                if like == request.user:
+                    is_like = True
+                    break
+
+            if not is_like:
+                post.like.add(request.user)
+
+            if is_like:
+                post.like.remove(request.user)
+
+            print("asd")
+            tryConfiable(post.usuario.id,question_id)
+            trySubNivel(post.usuario.id)
+            tryConfiablRpta(post)
+            print("asd" + str(GetLikeGlobal()))
+
+
+            return HttpResponseRedirect(reverse('question', kwargs={"question_id": question_id }))
+
+        if tipo == "dislike":
+            post = Respuesta.objects.get(pk=request.POST.get("rptaId"))
+            is_like = False
+
+            for like in post.like.all():
+                if like == request.user:
+                    is_like = True
+                    break
+
+            if is_like:
+                post.like.remove(request.user)
+
+            is_dislike = False
+
+            for dislike in post.dislike.all():
+                if dislike == request.user:
+                    is_dislike = True
+                    break
+
+            if not is_dislike:
+                post.dislike.add(request.user)
+
+            if is_dislike:
+                post.dislike.remove(request.user)
+
+            tryConfiable(post.usuario.id,question_id)
+            trySubNivel(post.usuario.id)
+            tryConfiablRpta(post)
+            return HttpResponseRedirect(reverse('question', kwargs={"question_id": question_id }))
+
+    context = {
+        "question": question,
+        "rptas":orderByLikes(questionID=question.id),
+    }
+    return render(request, "main/rptasConfiables.html",context)
+
 def orderByLikes(questionID):
     rptas = Respuesta.objects.filter(pregunta=questionID)
     orderList = sorted(rptas,key=lambda x: x.like.count(), reverse=True)

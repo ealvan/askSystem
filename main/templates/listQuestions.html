@@ -14,34 +14,53 @@
 </head>
 
 <body>
+    {% include 'navgar.html' %}
     <br><br><br>
-    <div class="container">
+    <div class="container" style="width: 50%;">
         <div class="card">
             <center>
                 <h1>Preguntas</h1>
             </center>
-            {% include 'navgar.html' %}
+            
             <br>
-            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                      <th scope="col"><h2>Enunciado</h2></th>
+                      <th scope="col"><h2></h2></th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
             {% for preguntas in lista %}
 
             {% if preguntas.confiable == True %}
-                    <h1>Repta confiable</h1>
+                    <tr class="table-active">
+                        <td></td>
+                        <td></td>
+                        <td><a href="{% url 'question' preguntas.id %}" style="color:#000000; text-decoration: none;"><b>{{ preguntas.titulo }}</b></a></td>
+                        <td><a href={{preguntas.id}}/conf style="color:#000000; text-decoration: none;"><b>Rpta confiables</b></a></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
             {% else %}
-                    <h1>Repta no confiable</h1>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><a href="{% url 'question' preguntas.id %}" style="color:#000000; text-decoration: none;">{{ preguntas.titulo }}</a></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
             {% endif %}
-
-
-
-
-            <ul>
-                <li>
-                    <h3><a href="{% url 'question' preguntas.id %}" style="color:#000000;">{{ preguntas.titulo }}</a></h3>
-                </li>
-            </ul>
             {% endfor %}
+            </table>
         </div>
     </div>
+    <br><br><br>
     <div class="fixed-bottom bg-danger">
         <br>
         <footer class="container">

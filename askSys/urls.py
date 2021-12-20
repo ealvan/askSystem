@@ -25,6 +25,7 @@ urlpatterns = [
     path("question/<int:question_id>/det/",views.PreguntaDetailView, name="detalles"),
     path('question/<int:pk>/delete/', views.PreguntaDeleteView.as_view(), name = 'pregunta-delete'),
     path('question/<int:pk>/update/', views.PreguntaUpdateView.as_view(), name = 'pregunta-update'),
+    path('question/<int:question_id>/conf/', views.rptasConfiables, name = 'conf'),
     path("question/ask",views.PreguntaCreateView, name="ask"),
     path("reply/<int:question_id>/",views.createReply,name="reply"),
     path("search",views.resultados, name="search"),
