@@ -1,0 +1,15 @@
+{% extends 'basePreguntas.html' %}
+{% block title %}
+    Lista de Respuestas Confiables
+{% endblock %}
+{% block body %}
+<h1> Listado de Respuestas Confiables </h1>
+<ul>
+{% for instance in object_list %}
+    <li>
+        {{ instance.descripcion }}</a>
+    </li>
+{% endfor %}
+</ul>
+<button onclick="location.href='/question/{{id}}/'">Ver Todas las Respuestas</button>
+{% endblock %}
