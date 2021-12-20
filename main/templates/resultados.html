@@ -29,25 +29,27 @@
   <div class="container marketing">
     <hr class="featurette-divider">
 
-    <div class="row featurette px-5">
-      <div class="col-md-7">
-
         <!-- Le puse el buscador provisional aca, esto debería estar en el nav -->
 
         {% if preguntas %}
-        <section>
-          <h3>Actualmente: </h3>
-          <p>Hay {{ preguntas|length }} preguntas encotnrads</p>
-        </section>
-        <div>
+        <div class="container marketing">
+          <hr class="featurette-divider">
+        
+          <h2>Actualmente: </h2>
+          <h3>Hay {{ preguntas|length }} preguntas encotnrads</h3>
           {% for pregconf in preguntas %}
-          <section class="pregconfia">
-            <h2> <a href="{% url 'question' pregconf.id %}">{{pregconf.titulo}}</a></h2>
-            <p>{{pregconf.descripcion}}</p>
-            <p>Usuario: <em>{{pregconf.usuario.username}}</em></p>
-          </section>
+          <br>
+          <div class="row featurette px-20">
+            <div class="col-md-10">
+              <ul class="list-group">
+                <li class="list-group-item"><p> <b>Titulo:</b> <b><a href="{% url 'question' pregconf.id %}" style="text-decoration: none;color:#000000;">{{pregconf.titulo}}</a></b></p></li>
+                <li class="list-group-item"><p> <b>Descripcion:</b> {{pregconf.descripcion}} </p></li>
+                <li class="list-group-item"><p> <b>Usuario:</b> {{pregconf.usuario.username}} </p></li>
+              </ul>
+            </div>
+          <br>
           {% endfor %}
-        </div>
+       
         {% else %}
         <h1><b>Lo sentimos no hay preguntas todavia</b></h1>
         <!-- insertar aqui algo para la url de la pagina home
@@ -58,8 +60,7 @@
         {% endif %}
 
 
-      </div>
-    </div>
+      
   </div>
 <br><br>
     <div class="fixed-bottom bg-danger">
