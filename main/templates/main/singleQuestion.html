@@ -18,22 +18,25 @@
             <section class="pregconfia">
                 <h2> {{question.titulo}} </h2>
                 <p>{{question.descripcion}}</p>
-                <a class="navbar-brand" href="det" style="color:red; background-color:white;;border:3px solid red;
-                border-radius:10px;padding: 4px;"> Ver detalles </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <a href=det style="text-decoration: none;">
+                    <button class="btn btn-outline-danger" type="button">
+                        <b>Ver detalles</b>
+                    </button>
+                </a>
+
                 <!-- se mostrara el boton de 'ver grafica' solo cuando la pregunta es confiable -->
                 {% if question.confiable %}
-                <a class="navbar-brand" href="grafico" style="color:red; background-color:white;;border:3px solid red;
-                border-radius:10px;padding: 4px;">Ver grafica</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <a href=grafico style="text-decoration: none;">
+                    <button class="btn btn-outline-danger" type="button">
+                        <b>Ver grafica</b>
+                    </button>
+                </a>
                 {% endif %}
-
-                <button onclick="location.href='{% url 'question' question.id %}resConf'">Ver Respuestas Confiables</button>
-
+                <a href=conf style="text-decoration: none;">
+                    <button class="btn btn-outline-danger" type="button">
+                        <b>Rptas confiables</b>
+                    </button>
+                </a>
             </section>
         </div>
         <br>
@@ -42,14 +45,48 @@
             <div class="accordion" id="accordionExample">
                 {% for rpta in rptas %}
                 {% if rpta.confiable == True %}
-                <h1>Repta confiable</h1>
-                {% else %}
-                <h1>Repta no confiable</h1>
-                {% endif %}
                 <div class="accordion-item">
                     <h1 class="accordion-header" id="headingOne">
-                        <a href="{% url 'listusers' rpta.usuario.id %}">
-                            <button class="accordion-button" type="button" style="color:#fdfbfb; background-color:#f14343;" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <a href="{% url 'listusers' rpta.usuario.id %}" style="text-decoration: none;">
+                            <button class="accordion-button" type="button"
+                                style="color:#fdfbfb; background-color:#0aa12bc7;" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <b>Respuesta de {{ rpta.usuario.username }}</b>
+                            </button>
+                        </a>
+
+                    </h1>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            {{rpta.descripcion|safe}}
+                            <br>
+                            <img src="{{rpta.url_img}}" class="img-thumbnail" alt="..." width="400" height="400">
+                            <ul>
+                                <form method="POST" action="/question/{{question.id}}/">
+                                    {% csrf_token %}
+                                    <input name="type" type="hidden" value="like">
+                                    <input name="rptaId" type="hidden" value="{{rpta.id}}">
+                                    <li>&#128077;: <button class="like">{{rpta.like.all.count}}</button></li>
+                                </form>
+                                <form method="POST" action="/question/{{question.id}}/">
+                                    {% csrf_token %}
+                                    <input name="type" type="hidden" value="dislike">
+                                    <input name="rptaId" type="hidden" value="{{rpta.id}}">
+                                    <li>&#128078;: <button class="dislike">{{rpta.dislike.all.count}}</button></li>
+                                </form>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                {% else %}
+                <div class="accordion-item">
+                    <h1 class="accordion-header" id="headingOne">
+                        <a href="{% url 'listusers' rpta.usuario.id %}" style="text-decoration: none;">
+                            <button class="accordion-button" type="button"
+                                style="color:#fdfbfb; background-color:#f14343;" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 <b>Respuesta de {{ rpta.usuario.username }}</b>
                             </button>
                         </a>
@@ -96,6 +133,9 @@
                     </div>
                 </div>
                 <br>
+                {% endif %}
+
+                
                 {% endfor %}
             </div>
             <br>
@@ -104,7 +144,14 @@
         <p><b>No hay respuesta para esta pregunt aun.</b></p>
         <!-- <button id="addReply"> Crear Respuesta!</button> -->
         {% endif %}
-        <button class="btn btn-outline-danger" id="addReply"> Crear Respuesta!</button>
+        <footer class="container">
+        <button class="btn btn-outline-danger" id="addReply"><b>Crear Respuesta!</b></button>
+        <a href="/question" style="text-decoration: none;">
+            <button class="btn btn-outline-danger" type="button">
+                <b>Volver</b>
+            </button>
+        </a>
+        </footer>
         {% else %}
         <p> <b> No existe esta pregunta, puedes intentar buscando otra</b> </p>
         {% endif %}
