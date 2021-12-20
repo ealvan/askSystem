@@ -44,7 +44,7 @@
         <div class="carousel-item active">
           <img src="static/carrusel-1.jpg" class="d-block w-100" alt="..." width="50xp" height="300xp">
           <div class="carousel-caption d-none d-md-block">
-            <h1> <a href="{% url 'question' q.id %}">{{pregconf.titulo}}</a></h1>
+            <h1> <a href="{% url 'question' q.id %}">{{q.titulo}}</a></h1>
             <h4>{{ q.descripcion}}</h4>
             <h4>Usuario: <em>{{q.usuario.username}}</em></h4>
           </div>

@@ -592,3 +592,37 @@ def listUsers(request,pk):
     return render(request,"usuario/list_usuario.html",context)
 
 #HOla
+def PreguntaGraficoView(request, question_id):
+    obj = get_object_or_404(Pregunta, id = question_id)
+    respuestasDes = []
+    likes = []
+    dislikes = []
+    for r in obj.get_respuestas():
+        #respuestasDes.append(r.descripcion)
+        #likes.append(r.likes)
+        #dislikes.append(r.dislikes)
+
+        #tomamos solo las respuestas confiables
+        if r.confiable:
+            respuestasDes.append(r.descripcion)
+            likes.append(r.like.count())
+            dislikes.append(r.dislike.count())
+    context = {
+        'titulo': obj.titulo,
+        'respuestasDes': respuestasDes,
+        'likes': likes,
+        'dislikes': dislikes,
+    }
+    return render(request, 'main/pregunta_grafico.html', context)
+
+def RespuestaListConfiableView(request, question_id):
+    obj = get_object_or_404(Pregunta, id = question_id)
+    respuestasConfiables = []
+    for r in obj.get_respuestas():
+        if r.confiable:
+            respuestasConfiables.append(r)
+    context = {
+        'object_list': respuestasConfiables,
+        'id': obj.id,
+    }
+    return render(request, 'main/respuestas_confiables.html', context)

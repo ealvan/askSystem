@@ -1,26 +1,59 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Titulode </title>
-    </head>
-    <body>
-        <h1>Agregar una nueva Categoria</h1>
-        {% if form %}
-        <form method="POST">{% csrf_token %}
-            <div>
-                <label for="">{{form.nombre.label}} </label>
-                {{form.nombre}}
+
+<head>
+    <title>Editar Categoria</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel='stylesheet' href="{% static 'lib/Highcharts-7.0.3/code/css/categoria/categoriastyle.css' %}">
+</head>
+
+<body>
+    {% include 'navgar.html' %}
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <div class="card p-2">
+            <div class="card">
+                <center>
+                    <h1>Editar Categoria</h1>
+                </center>
             </div>
-            <div>
-                <label for="">{{form.descripcion.label}} </label>
-                {{form.descripcion}}
-            </div>
-            <div>
-                <button type="submit" >Editar</button>
-            </div>
-        </form>
-        {% else %}
-            <p>No llga el "form"</p>
-        {% endif %}
-    </body>
+            <br>
+            {% if form %}
+            <form method="POST">{% csrf_token %}
+                <div>
+                    <label for="">{{form.nombre.label}} </label>
+                    {{form.nombre}}
+                </div>
+                <div>
+                    <label for="">{{form.descripcion.label}} </label>
+                    {{form.descripcion}}
+                </div>
+                <div>
+                    <center>
+                        <button type="submit">Editar</button>
+                    </center>
+                </div>
+            </form>
+            {% else %}
+            <p>No llega el "form"</p>
+            {% endif %}
+        </div>
+    </div>
+    </div>
+    <div class="fixed-bottom bg-danger">
+        <br>
+        <footer class="container">
+            <p class="float-end"><a style="color:#fcfcfc;" href="#">Volver arriba</a></p>
+            <p style="color:#fcfcfc;">&copy; 2021 Company, Inc.</p>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+</body>
+
 </html>
