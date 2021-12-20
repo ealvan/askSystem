@@ -293,7 +293,7 @@ def tryConfiablRpta(post):
 
 
 def tryConfiable(id, question_id):
-    a = Respuesta.objects.filter(usuario=id,pregunta=question_id)
+    a = Respuesta.objects.filter(pregunta=question_id)
     q = get_object_or_404(Pregunta, id=question_id)
 
     cont_aux_likes = 0;
