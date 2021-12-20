@@ -52,7 +52,10 @@
         <div class="col-md-10">
             <ul class="list-group">
               {% for question in usersended.pregunta_set.all %}
-                <li class="list-group-item"><p> <b>Pregunta:</b> {{question.titulo}} </p></li>
+              <a href = "{% url 'question' question.id %}">
+                  <li class="list-group-item"><p> <b>Pregunta:</b> {{question.titulo}} </p></li>
+              </a>
+                
               {% endfor %}
             </ul>
         </div>
