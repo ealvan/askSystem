@@ -63,6 +63,10 @@
                             <br>
                             <img src="{{rpta.url_img}}" class="img-thumbnail" alt="..." width="400" height="400">
                             <ul>
+
+
+
+                                {% if user.is_authenticated %}
                                 <form method="POST" action="/question/{{question.id}}/">
                                     {% csrf_token %}
                                     <input name="type" type="hidden" value="like">
@@ -75,6 +79,23 @@
                                     <input name="rptaId" type="hidden" value="{{rpta.id}}">
                                     <li>&#128078;: <button class="dislike">{{rpta.dislike.all.count}}</button></li>
                                 </form>
+                                {% else %}
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <input name="type" type="hidden" value="like">
+                                    <input name="rptaId" type="hidden" value="{{rpta.id}}">
+                                    <li>&#128077;: <button class="like" disabled="true">{{rpta.like.all.count}}</button>
+                                    </li>
+                                </form>
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <input name="type" type="hidden" value="dislike">
+                                    <input name="rptaId" type="hidden" value="{{rpta.id}}">
+                                    <li>&#128078;: <button class="dislike" disabled="true">{{rpta.dislike.all.count}}</button></li>
+                                </form>
+                                <h7>Para calificar inicie sesion</h7>
+                                {% endif %}
+
                             </ul>
                         </div>
                     </div>
