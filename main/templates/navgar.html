@@ -13,9 +13,11 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'index'%}">Home</a>
           </li>
+          {% if user.is_authenticated == False %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'SignUp' %}">Registrarse</a>
           </li>
+          {% endif %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'ask' %}">Preguntar</a>
           </li>
