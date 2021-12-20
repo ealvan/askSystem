@@ -34,7 +34,7 @@ def index(request): #Se envian solo 3 objetos aleatorios
     print(count)
     rand = randint(1,count-2)
     q = get_object_or_404(Pregunta, id=rand)
-    a = Pregunta.objects.filter(id__range=[rand+1, rand+3])
+    a = Pregunta.objects.filter(id__range=[rand+1, rand+5])
 
     context = {
         "lista":a,
@@ -587,7 +587,7 @@ class DeleteCat(DeleteView):
 def listUsers(request,pk):
     user = Usuario.objects.get(id=pk)
     context = {
-        "user":user
+        "usersended":user
     }
     return render(request,"usuario/list_usuario.html",context)
 
