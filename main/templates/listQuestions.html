@@ -37,6 +37,7 @@
             <ul>
                 <li>
                     <h3><a href="{% url 'question' preguntas.id %}" style="color:#000000;">{{ preguntas.titulo }}</a></h3>
+                    <button onclick="location.href='{% url 'question' preguntas.id %}resConf'">Ver Respuestas Confiables</button>
                 </li>
             </ul>
             {% endfor %}

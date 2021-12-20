@@ -40,4 +40,6 @@ urlpatterns = [
     path("listcat/",views.ListCategories.as_view(),name="listcat"),
     #LIST USUARIO
     path("listUser/<int:pk>",views.listUsers, name="listusers"),
+    #respuestas confiables
+    path("question/<int:question_id>/resConf",views.RespuestaListConfiableView, name="respuestas-confiables"),
 ]
