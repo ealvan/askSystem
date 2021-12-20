@@ -7,10 +7,10 @@
         <head>Listar usuario</head>
 
         {% if user %}
-            
+
             <section id="datosUser" >
                 <h2>Datos del Usuario: {{user.username}}</h2>
-                <label >Username: 
+                <label >Username:
                     {{user.username}}
                 </label><br>
                 <label>Nivel: {{user.nivel}}</label><br>
@@ -20,19 +20,21 @@
             <br><br>
             <section id="questions">
                 <h2>Preguntas que tu hiciste: </h2>
-                {% if user.pregunta_set.all  %}                
+                {% if user.pregunta_set.all  %}
                     {% for question in user.pregunta_set.all %}
-                        <label>Pregunta: {{question.titulo}}</label><br>                        
+                        <label>Pregunta: {{question.titulo}}</label><br>
                     {% endfor %}
                 {% else %}
                 <p>No tienes preguntas registradas aun</p>
                 {% endif %}
             </section>
-    
+            <button><a href="{% url 'listcat' %}">Listar Categoria</a></button>
+
         {% else %}
             <p>No existe este usuario.  </p>
             <a href="{% url 'list' %}">Regresar a Home</a>
         {% endif %}
+
 
     </body>
 
